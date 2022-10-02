@@ -1,7 +1,0 @@
-# ninja log v5
-984	1241	6862728955816978	algorithms_lab1.exe	2640a39b0554d9f3
-10	761	6862728951043496	CMakeFiles/algorithms_lab1.dir/project_tests.cpp.obj	eefd38e4ab7e8cb8
-6	889	6862728952333085	CMakeFiles/algorithms_lab1.dir/ShuntingYard.cpp.obj	9903f75b7b873fa3
-1	983	6862728953277301	CMakeFiles/algorithms_lab1.dir/main.cpp.obj	7f8ee551c25ea56f
-8	240	6862729616741203	build.ninja	4be76b27efdf540f
-4	599	6862729623396245	algorithms_lab1.exe	5a84644f6e70fb87
