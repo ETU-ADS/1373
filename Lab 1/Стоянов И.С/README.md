@@ -18,18 +18,18 @@
 
 ```bash
 >> python main.py
->> 3 + 4 * ( 2 - 1 )
->> 3421-*+
+>> input: 3 + 4 * ( 2 - 1 )
+>> output: 3 4 2 1 - * +
 ```
 
 ```bash
 >> python main.py
->> 5 + 3 * 7
->> 537*+
+>> input: 5 + 3 * 7
+>> output: 5 3 7 * +
 ```
 
 ```bash
 >> python main.py
->> 3 * ( sin ( 4 ) - 1 ) + 4 * ( cos ( 2 ) * 7 )
->> 341-sin*427*cos*+
+>> input: 3 * ( sin ( 4 ) - 1 ) + 4 * ( cos ( 2 ) * 7 )
+>> output: 3 4 sin 1 - * 4 2 cos 7 * * +
 ```

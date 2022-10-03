@@ -112,6 +112,8 @@ class LinkedList:
     
     def __str__(self) -> str:
         node = self.head
+        if len(self) == 0:
+            return '[]'
         line = '['
         while node.next_node:
             line += str(node.element) + ', '
