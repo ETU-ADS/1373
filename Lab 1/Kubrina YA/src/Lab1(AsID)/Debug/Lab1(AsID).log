@@ -1,0 +1,12 @@
+﻿  Source.cpp
+C:\Users\77782\source\repos\Lab1(AsID)\Lab1(AsID)\Source.cpp(118,20): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\77782\source\repos\Lab1(AsID)\Lab1(AsID)\Source.cpp(120,14): warning C4018: <=: несоответствие типов со знаком и без знака
+C:\Users\77782\source\repos\Lab1(AsID)\Lab1(AsID)\Source.cpp(132,14): warning C4018: <=: несоответствие типов со знаком и без знака
+C:\Users\77782\source\repos\Lab1(AsID)\Lab1(AsID)\Source.cpp(162,22): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\77782\source\repos\Lab1(AsID)\Lab1(AsID)\Source.cpp(273): warning C4715: what_sim: значение возвращается не при всех путях выполнения
+C:\Users\77782\source\repos\Lab1(AsID)\Lab1(AsID)\Source.cpp(290): warning C4715: _prior: значение возвращается не при всех путях выполнения
+C:\Users\77782\source\repos\Lab1(AsID)\Lab1(AsID)\Header.h(399): warning C4715: stack<char>::peak: значение возвращается не при всех путях выполнения
+C:\Users\77782\source\repos\Lab1(AsID)\Lab1(AsID)\Header.h(388): warning C4715: stack<char>::pop: значение возвращается не при всех путях выполнения
+C:\Users\77782\source\repos\Lab1(AsID)\Lab1(AsID)\Header.h(422): warning C4715: queue<char>::pop: значение возвращается не при всех путях выполнения
+C:\Users\77782\source\repos\Lab1(AsID)\Lab1(AsID)\Header.h(71): warning C4715: _List<char>::getVal: значение возвращается не при всех путях выполнения
+  Lab1(AsID).vcxproj -> C:\Users\77782\source\repos\Lab1(AsID)\Debug\Lab1(AsID).exe
