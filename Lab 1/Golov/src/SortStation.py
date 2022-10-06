@@ -20,7 +20,6 @@ def sort_station(equation):
         elif i in ['*', '/', '+', '-', '^']:
             while stack.peak() not in ['sin', 'cos', '(', ')', None] and priority_list.get(i) <= priority_list.get(
                     stack.peak()) and not (stack.peak() == '^' and i == '^'):
-                print(i, stack.peak())
                 queue.push(stack.pop())
             stack.push(i)
         elif i in ['(', ')']:
