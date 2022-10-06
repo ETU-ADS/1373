@@ -2,7 +2,7 @@
 void SortStation(string math);
 int what_sim(char t);
 int _prior(char t);
-bool checkExp(string math);
+bool checkSkob(string math);
 int main() {
 
 	/*
@@ -106,7 +106,7 @@ int main() {
 	*/
 	string math;
 	cout << "Enter an infix notation for an expression: ";
-	//cin >> math;
+	
 	getline(cin ,math);
 	SortStation(math);
 	cout << endl;
@@ -114,58 +114,36 @@ int main() {
 	return 0;
 }
 
-bool checkExp(string math) {
+bool checkSkob(string math) {
+	
+	int cnt_s1 = 0, cnt_s2 = 0;
 	for (int i = 0; i < math.size(); i++) {
-		if (math[i] == 's') {
-			if (i + 2 <= math.size()) {
-				if (math[i + 1] != 'i' || math[i + 2] != 'n') {
-					cout << "Error: input fail";
-					return false;
-				}
-			}
-			else {
-				return false;
-			}
-			i += 2;
+		if (math[i] == '(') {
+			cnt_s1++;
 		}
-		else if (math[i] == 'c') {
-			if (i + 2 <= math.size()) {
-				if (math[i + 1] != 'o' || math[i + 2] != 's') {
-					cout << "Error: input fail";
-					return false;
-				}
-			}
-			else {
-				return false;
-			}
-			i += 2;
+		else if (math[i] == ')') {
+			cnt_s2++;
 		}
-		else {
-			if (!(math[i] <= '9' && math[i] >= '0' || math[i] == '+'
-				|| math[i] == '-' || math[i] == '*' || math[i] == '/' || math[i] == '^'
-				|| math[i] == '(' || math[i] == ')')) {
-				cout << "Error: input fail";
-				return false;
-			}
-		}
-		
 	}
-		
-	return true;
+	if (cnt_s1 == cnt_s2) { return true; }
+	else { return false; }
 }
 
 void SortStation(string math) {
 	while (true) {
-		if (checkExp(math)) {
-			queue<char> q;
+		if (checkSkob(math)) {
+			
 			stack<char> st;
+			cout << "Prefix expression notation: ";
 			for (int i = 0; i < math.size(); i++) {
 				switch (what_sim(math[i])) {
 				case symbol::num:
-					q.push(math[i]);
-					if (i + 1 != math.size()) {
+					
+					cout << math[i];
+					if (i + 2 != math.size()) {
 						if (what_sim(math[i + 1]) != symbol::num) {
-							q.push(' ');
+							cout << " "; 
+							
 						}
 					}
 					break;
@@ -176,17 +154,20 @@ void SortStation(string math) {
 					else {
 						while (st.peak() != '(') {
 							if (st.peak() == 's') {
-								q.push(st.pop());
-								q.push('i');
-								q.push('n');
+								cout << st.pop();
+								cout << "i";
+								cout << "n"<<" ";
+								
 							}
 							else if (st.peak() == 'c') {
-								q.push(st.pop());
-								q.push('o');
-								q.push('s');
+								cout << st.pop();
+								cout << "o";
+								cout << "s"<<" ";
+								
 							}
 							else {
-								q.push(st.pop());
+								cout << st.pop()<<" ";
+								
 							}
 
 						}
@@ -198,17 +179,20 @@ void SortStation(string math) {
 						if (st.peak() != '(') {
 							if (_prior(math[i]) <= _prior(st.peak())) {
 								if (st.peak() == 's') {
-									q.push(st.pop());
-									q.push('i');
-									q.push('n');
+									cout << st.pop();
+									cout << "i";
+									cout << "n"<<" ";
+									
 								}
 								else if (st.peak() == 'c') {
-									q.push(st.pop());
-									q.push('o');
-									q.push('s');
+									cout << st.pop();
+									cout << "o";
+									cout << "s"<<" ";
+									
 								}
 								else {
-									q.push(st.pop());
+									cout << st.pop()<<" ";
+									
 								}
 							}
 						}
@@ -226,23 +210,21 @@ void SortStation(string math) {
 			}
 			while (!st.is_empty()) {
 				if (st.peak() == 's') {
-					q.push(st.pop());
-					q.push('i');
-					q.push('n');
+					cout << st.pop();
+					cout << "i";
+					cout << "n"<<" ";
+					
 				}
 				else if (st.peak() == 'c') {
-					q.push(st.pop());
-					q.push('o');
-					q.push('s');
+					cout << st.pop();
+					cout << "o";
+					cout << "s"<<" ";
+					
 				}
 				else {
-					q.push(st.pop());
+					cout << st.pop()<<" ";
+					
 				}
-
-			}
-			cout << "Prefix expression notation: ";
-			while (!q.is_empty()) {
-				cout << q.pop();
 			}
 			return;
 		}
@@ -250,7 +232,6 @@ void SortStation(string math) {
 			cout << "\nTry again.\nEnter an infix notation for an expression: ";
 			cin.clear();
 			getline(cin, math);
-			
 		}
 	}
 	

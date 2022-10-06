@@ -406,32 +406,3 @@ public:
 	}
 };
 
-
-template <typename L>
-class queue {
-private:
-	_List<L> mas;
-public:
-	
-	L pop() {
-		if (mas.getSize() != 0) {
-			L temp = mas.getVal(0);
-			mas.deleteNode(0);
-			return temp;
-		}
-	}
-	L peak() {
-		if (mas.getSize() != 0) {
-			return mas[0];
-		}
-	}
-	void push(L data) {
-		mas.push_back(data);
-	}
-	bool is_empty() {
-		if (mas.getSize() == 0) {
-			return true;
-		}
-		else { return false; }
-	}
-};
