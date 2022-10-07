@@ -15,8 +15,7 @@ def to_postfix(input_string: str) -> str:
     output = [] 
     
     if input_tokens.count('(') != input_tokens.count(')'):
-        print(f"You missed '(' or ')'")
-        return
+        raise Exception("You missed '(' or ')'")
     
     for token in input_tokens:
         if token not in available_tokens:
@@ -48,8 +47,7 @@ def to_postfix(input_string: str) -> str:
             while stack.top() != '(':
                 output.append(stack.pop()) # Переложить оператор из стека в выходную очередь. 
                 if len(stack) == 0: # Если стек закончился до того, как был встречен токен открывающая скобка, то в выражении пропущена скобка.
-                    print("Error! You missed '(' or ')'")
-                    return 
+                    raise Exception("You missed '(' or ')'")
             stack.pop() # Выкинуть открывающую скобку из стека, но не добавлять в очередь вывода.
             
             # Если токен на вершине стека — функция, переложить её в выходную очередь.
