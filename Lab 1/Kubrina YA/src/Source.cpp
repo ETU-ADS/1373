@@ -2,7 +2,6 @@
 void SortStation(string math);
 int what_sim(char t);
 int _prior(char t);
-bool checkSkob(string math);
 int main() {
 
 	/*
@@ -114,127 +113,116 @@ int main() {
 	return 0;
 }
 
-bool checkSkob(string math) {
-	
-	int cnt_s1 = 0, cnt_s2 = 0;
-	for (int i = 0; i < math.size(); i++) {
-		if (math[i] == '(') {
-			cnt_s1++;
-		}
-		else if (math[i] == ')') {
-			cnt_s2++;
-		}
-	}
-	if (cnt_s1 == cnt_s2) { return true; }
-	else { return false; }
-}
-
 void SortStation(string math) {
-	while (true) {
-		if (checkSkob(math)) {
-			
-			stack<char> st;
-			cout << "Prefix expression notation: ";
-			for (int i = 0; i < math.size(); i++) {
-				switch (what_sim(math[i])) {
-				case symbol::num:
-					
-					cout << math[i];
-					if (i + 2 != math.size()) {
-						if (what_sim(math[i + 1]) != symbol::num) {
-							cout << " "; 
-							
-						}
+	int cnt_skob = 0;
+
+	stack<char> st;
+	cout << "Prefix expression notation: ";
+
+	
+	for (int i = 0; i < math.size(); i++) {
+		switch (what_sim(math[i])) {
+		case symbol::num:
+			cout << math[i];
+			if (i + 1 != math.size()) {
+				if (what_sim(math[i + 1]) != symbol::num) {
+					cout << " ";
+				}
+			}
+			else if (i + 1 == math.size()) {
+				cout << " ";
+			}
+			break;
+		case symbol::skobka:
+			if (math[i] == '(') {
+				st.push(math[i]);
+				cnt_skob++;
+			}
+			else {
+				while (st.peak() != '(') {
+					if (st.peak() == 's') {
+						cout << st.pop();
+						cout << "i";
+						cout << "n" << " ";
+
 					}
-					break;
-				case symbol::skobka:
-					if (math[i] == '(') {
-						st.push(math[i]);
+					else if (st.peak() == 'c') {
+						cout << st.pop();
+						cout << "o";
+						cout << "s" << " ";
+
 					}
 					else {
-						while (st.peak() != '(') {
-							if (st.peak() == 's') {
-								cout << st.pop();
-								cout << "i";
-								cout << "n"<<" ";
-								
-							}
-							else if (st.peak() == 'c') {
-								cout << st.pop();
-								cout << "o";
-								cout << "s"<<" ";
-								
-							}
-							else {
-								cout << st.pop()<<" ";
-								
-							}
-
-						}
-						st.pop();
-					}
-					break;
-				case symbol::znak:
-					if (!st.is_empty()) {
-						if (st.peak() != '(') {
-							if (_prior(math[i]) <= _prior(st.peak())) {
-								if (st.peak() == 's') {
-									cout << st.pop();
-									cout << "i";
-									cout << "n"<<" ";
-									
-								}
-								else if (st.peak() == 'c') {
-									cout << st.pop();
-									cout << "o";
-									cout << "s"<<" ";
-									
-								}
-								else {
-									cout << st.pop()<<" ";
-									
-								}
-							}
-						}
+						cout << st.pop() << " ";
 
 					}
-					st.push(math[i]);
 
-					break;
-				case symbol::funk:
-					st.push(math[i]);
-					i += 2;
+				}
+				st.pop();
+				cnt_skob--;
+			}
+			break;
+		case symbol::znak:
+			if (!st.is_empty()) {
+				if (st.peak() != '(') {
+					if (_prior(math[i]) <= _prior(st.peak())) {
+						if (st.peak() == 's') {
+							cout << st.pop();
+							cout << "i";
+							cout << "n" << " ";
 
-					break;
+						}
+						else if (st.peak() == 'c') {
+							cout << st.pop();
+							cout << "o";
+							cout << "s" << " ";
+
+						}
+						else {
+							cout << st.pop() << " ";
+
+						}
+					}
 				}
+
 			}
-			while (!st.is_empty()) {
-				if (st.peak() == 's') {
-					cout << st.pop();
-					cout << "i";
-					cout << "n"<<" ";
-					
-				}
-				else if (st.peak() == 'c') {
-					cout << st.pop();
-					cout << "o";
-					cout << "s"<<" ";
-					
-				}
-				else {
-					cout << st.pop()<<" ";
-					
-				}
-			}
-			return;
-		}
-		else {
-			cout << "\nTry again.\nEnter an infix notation for an expression: ";
-			cin.clear();
-			getline(cin, math);
+			st.push(math[i]);
+
+			break;
+		case symbol::funk:
+			st.push(math[i]);
+			i += 2;
+
+			break;
 		}
 	}
-	
+	if (cnt_skob != 0) {
+		cout << "\nError: wrong expression.\n";
+		return;
+	}
+
+
+
+
+	while (!st.is_empty()) {
+		if (st.peak() == 's') {
+			cout << st.pop();
+			cout << "i";
+			cout << "n" << " ";
+
+		}
+		else if (st.peak() == 'c') {
+			cout << st.pop();
+			cout << "o";
+			cout << "s" << " ";
+
+		}
+		else {
+			cout << st.pop() << " ";
+
+		}
+	}
+	return;
 }
 
 int what_sim(char t) {
