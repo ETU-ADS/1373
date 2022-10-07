@@ -390,7 +390,6 @@ public:
             return 3; // Оп. приоритет 2
         if ((token == "^"))
             return 4; // Левосторонний оп.
-
     }
     MyStack Stack;
     
@@ -437,8 +436,10 @@ public:
             token = Stack.peak();
             Stack.pop();
             
-            if (type(token) == 0)
+            if (type(token) == 0) {
                 out += token;
+                out += " ";
+            }
             if (type(token)==1)
                 SortStack.push(token);
            
@@ -446,11 +447,13 @@ public:
                 if (type(token) == 2)
                 while ((type(SortStack.peak()) == 2) ||(type(SortStack.peak()) == 3) || (type(SortStack.peak()) == 4)) {
                     out += SortStack.peak();
+                    out += " ";
                     SortStack.pop();
                 }
                 if ((type(token)==3)||(type(token)==4))
                     while (type(SortStack.peak()) == 3) {
                         out += SortStack.peak();
+                        out += " ";
                         SortStack.pop();
                     }
                 SortStack.push(token);
@@ -459,21 +462,24 @@ public:
                 SortStack.push(token);
             if (token == ")") {
                 while (SortStack.peak() != "(") {
-                    if (SortStack.size == 0) { cout << "ERROR!" << endl; is_error = 1; break; }
-                    out += SortStack.peak();
-                    SortStack.pop();
+                    if (SortStack.size == 0) { cout << "ERROR! Extra right bracket" << endl; is_error = 1; break; }
+                        out += SortStack.peak();
+                        out += " ";
+                        SortStack.pop();
                 }
-                SortStack.pop();
+                if (is_error == 0) SortStack.pop();
                 if (type(SortStack.peak()) == 1) {
                     out += SortStack.peak();
+                    out += " ";
                     SortStack.pop();
                 }
             }
 
         }
         while (SortStack.size != 0) {
-            if (SortStack.peak() == "(") { cout << "ERROR!" << endl; is_error = 1; break; }
+            if (SortStack.peak() == "(") { cout << "ERROR! Extra left bracket" << endl; is_error = 1; break; }
             out += SortStack.peak();
+            out += " ";
             SortStack.pop();
         }
         if (is_error == 0)
@@ -485,12 +491,10 @@ public:
 int main()
 {
     Sort_Station Sort;
-        
+    
     string str;
     while (str != "x") {
         getline(cin, str);
-
         Sort.Sort(str);
     }
-   
 }
