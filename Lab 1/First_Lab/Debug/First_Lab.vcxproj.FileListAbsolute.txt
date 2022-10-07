@@ -1,0 +1,2 @@
+G:\3 cеместр\First_Lab\Debug\First_Lab.exe
+G:\3 cеместр\First_Lab\Debug\First_Lab.pdb
