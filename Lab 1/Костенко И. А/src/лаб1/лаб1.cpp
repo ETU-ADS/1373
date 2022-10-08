@@ -87,11 +87,16 @@ void sortingStation(string input) {
 		if ((token[0] == ')' && token[1] == 0))
 		{
 			isCrashed = false;
+			if (stack.isEmpty())
+			{
+				cout << "Ошибка, непарная закрывающая :" << endl;
+				return;
+			}
 			while (stack.peak() != '(')
 			{
 				if (stack.isEmpty())
 				{
-					cout << "Ошибка, неверный токен-скобка:";
+					cout << "Ошибка, непарная закрывающая :";
 					token.print();
 					return;
 				}
@@ -122,7 +127,7 @@ void sortingStation(string input) {
 	{
 		if (stack.peak() == '(')
 		{
-			cout << "Ошибка, открывающая скобка на вершине стека:";
+			cout << "Ошибка, лишняя открывающая скобка:";
 			return;
 		}
 		queueCall.add(stack.pop());

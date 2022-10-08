@@ -27,7 +27,7 @@ template<typename T>
 class Stack
 {
 private:
-	Item<T>* head;
+	Item<T>* head = (0, nullptr);
 public:
 	Stack();
 	Stack(const int count);

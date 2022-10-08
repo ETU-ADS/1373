@@ -108,6 +108,8 @@ bool LinkedList<T>::deleteItem(unsigned pos)
 		{
 			past->next = current->next;
 			delete current;
+			current->next = nullptr;
+			current->field = 0;
 			break;
 		}
 		current = current->next;
@@ -241,7 +243,6 @@ Stack<T>::~Stack()
 	{
 		return;
 	}
-	head = new Item<T>;
 	Item<T>* current = head;
 	Item<T>* next = current->next;
 	while (next != nullptr)
@@ -257,6 +258,8 @@ template<typename T>
 void Stack<T>::push(T item)
 {
 	Item<T>* newItem = new Item<T>();
+	newItem->field = 0;
+	newItem->next = nullptr;
 	newItem->field = item;
 	newItem->next = head;
 	head = newItem;
@@ -266,6 +269,7 @@ T Stack<T>::pop()
 {
 	if (isEmpty())
 	{
+		head == nullptr;
 		return NULL;
 	}
 	Item<T>* result;
@@ -371,7 +375,22 @@ void ArrayList<T>::print()
 {
 	for (int i = 0; i < maxSize; i++)
 	{
-		cout << arr[i];
+		if (arr[i] == 's')
+		{
+			cout << "sin" << " ";
+			continue;
+		}
+		else {
+			if (arr[i] == 'c')
+			{
+				cout << "cos" << " ";
+				continue;
+			}
+			else
+			{
+				cout << arr[i] << " ";
+			}
+		}
 	}
 }
 template<typename T>
