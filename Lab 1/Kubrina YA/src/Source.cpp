@@ -5,7 +5,7 @@ int _prior(char t);
 int main() {
 
 	/*
-	_List list(3, 5);
+	_List <int>list(3, 5);
 	list.printList();
 	cout << endl << "----------------" << endl;
 	list.printNode(1);
@@ -14,7 +14,7 @@ int main() {
 	cout << endl << "--------" << endl;
 	cout << list.is_empty();
 	cout << endl << "--------" << endl;
-	_List list1;
+	_List <int>list1;
 	cout << list1.is_empty();
 	cout << endl << "--------" << endl;
 	list1.push_back(24);
@@ -50,10 +50,10 @@ int main() {
 	list.printList();
 	cout << list.find(24)<<endl;
 
-	*/
+	
 	//////////////////////////
 
-	/*
+	
 	cout << "vector"<<endl;
 	_vector <int> mas(10);
 	mas[1] = 24;
@@ -87,9 +87,9 @@ int main() {
 	cout << arr.find(77);
 
 	cout << endl << "--------------" << endl;
-	*/
+	
 
-	/*
+	
 	cout << "stack" << endl;
 	stack<int> temp;
 	temp.push(3);
@@ -103,6 +103,7 @@ int main() {
 		cout << temp.pop() << " ";
 	}
 	*/
+
 	string math;
 	cout << "Enter an infix notation for an expression: ";
 	
@@ -141,7 +142,7 @@ void SortStation(string math) {
 			}
 			else {
 				if (cnt_skob <= 0) {
-					cout << "\nError: wrong expression.\n";
+					cout << "\nError: the number of bkt.\n";
 					return;
 				}
 				while (st.peak() != '(' && !st.is_empty()) {
@@ -213,7 +214,7 @@ void SortStation(string math) {
 
 
 	if (cnt_skob != 0) {
-		cout << "\nError: wrong expression.\n";
+		cout << "\nError:  the number of bkt.\n";
 		return;
 	}
 
