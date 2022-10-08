@@ -44,5 +44,5 @@ def sortStation(inputLine):
 
 
 if __name__ == "__main__":
-    inputLine = '3 * 222 + sin ( 3 )'
+    inputLine = '3 * ( sin ( 4 ) - 1 ) + 4 *  cos ( 2 )  * 7 )'
     print(sortStation(inputLine))
