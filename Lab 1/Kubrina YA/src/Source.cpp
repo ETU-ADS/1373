@@ -119,8 +119,9 @@ void SortStation(string math) {
 	stack<char> st;
 	cout << "Prefix expression notation: ";
 
-	
+
 	for (int i = 0; i < math.size(); i++) {
+
 		switch (what_sim(math[i])) {
 		case symbol::num:
 			cout << math[i];
@@ -139,7 +140,12 @@ void SortStation(string math) {
 				cnt_skob++;
 			}
 			else {
-				while (st.peak() != '(') {
+				if (cnt_skob <= 0) {
+					cout << "\nError: wrong expression.\n";
+					return;
+				}
+				while (st.peak() != '(' && !st.is_empty()) {
+					
 					if (st.peak() == 's') {
 						cout << st.pop();
 						cout << "i";
@@ -156,7 +162,7 @@ void SortStation(string math) {
 						cout << st.pop() << " ";
 
 					}
-
+					
 				}
 				st.pop();
 				cnt_skob--;
@@ -164,8 +170,9 @@ void SortStation(string math) {
 			break;
 		case symbol::znak:
 			if (!st.is_empty()) {
-				if (st.peak() != '(') {
-					if (_prior(math[i]) <= _prior(st.peak())) {
+				while (_prior(math[i]) <= _prior(st.peak())&& !st.is_empty()) {
+					
+					if (st.peak() != '(') {
 						if (st.peak() == 's') {
 							cout << st.pop();
 							cout << "i";
@@ -180,12 +187,16 @@ void SortStation(string math) {
 						}
 						else {
 							cout << st.pop() << " ";
-
 						}
 					}
+					else {
+						st.pop();
+						break;
+					}
 				}
-
+				
 			}
+
 			st.push(math[i]);
 
 			break;
@@ -195,14 +206,16 @@ void SortStation(string math) {
 
 			break;
 		}
+
+		
 	}
+
+
+
 	if (cnt_skob != 0) {
 		cout << "\nError: wrong expression.\n";
 		return;
 	}
-
-
-
 
 	while (!st.is_empty()) {
 		if (st.peak() == 's') {
@@ -221,10 +234,11 @@ void SortStation(string math) {
 			cout << st.pop() << " ";
 
 		}
-	}
-	return;
-}
 
+		
+	}
+	
+}
 int what_sim(char t) {
 	if (t <= '9' && t >= '0') {
 		return symbol::num;
