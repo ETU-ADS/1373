@@ -248,7 +248,6 @@ public:
     }
     int* get_reference(int num) {
         if (num < size) {
-
             return (data + num);
         }
         else {
@@ -381,15 +380,16 @@ public:
     }
     int type(string token) {
         if ((token == "0") || (token == "1") || (token == "2") || (token == "3") || (token == "4") || (token == "5") || (token == "6") || (token == "7") || (token == "8") || (token == "9"))
-            return 0; // Цифры
+            return 0;
         if ((token == "sin") || (token == "cos"))
-            return 1; // Функции
+            return 1; 
         if ((token == "+") || (token == "-"))
-            return 2; // Оп. приоритет 1
+            return 2;
         if ((token == "*") || (token == "/"))
-            return 3; // Оп. приоритет 2
+            return 3;
         if ((token == "^"))
-            return 4; // Левосторонний оп.
+            return 4;
+        return -1;
     }
     MyStack Stack;
     
@@ -418,6 +418,7 @@ public:
                     tmpStack.push(newtoken);
                 else {
                     cout << "Error! Token '" << newtoken << "' is invalid" << endl;
+                    is_error = 1;
                     break;
                 }
                 a1 = i + 1;
@@ -440,50 +441,42 @@ public:
                 out += token;
                 out += " ";
             }
+
             if (type(token)==1)
                 SortStack.push(token);
-           
-            if ((type(token) == 2)|| (type(token) == 3)|| (type(token) == 4)) {
-                if (type(token) == 2)
-                while ((type(SortStack.peak()) == 2) ||(type(SortStack.peak()) == 3) || (type(SortStack.peak()) == 4)) {
-                    out += SortStack.peak();
-                    out += " ";
-                    SortStack.pop();
-                }
-                if ((type(token)==3)||(type(token)==4))
-                    while (type(SortStack.peak()) == 3) {
-                        out += SortStack.peak();
-                        out += " ";
-                        SortStack.pop();
-                    }
-                SortStack.push(token);
-            }
+
             if (token == "(")
                 SortStack.push(token);
+
             if (token == ")") {
                 while (SortStack.peak() != "(") {
-                    if (SortStack.size == 0) { cout << "ERROR! Extra right bracket" << endl; is_error = 1; break; }
-                        out += SortStack.peak();
-                        out += " ";
-                        SortStack.pop();
-                }
-                if (is_error == 0) SortStack.pop();
-                if (type(SortStack.peak()) == 1) {
+                    if (SortStack.size == 0) { cout << "Error! Extra right bracket" << endl; is_error = 1; break; }
                     out += SortStack.peak();
                     out += " ";
                     SortStack.pop();
                 }
+                if (is_error == 0) SortStack.pop();
             }
 
+            if (type(token) >= 2) {
+                while ((type(SortStack.peak()) == 1)||(type(SortStack.peak()) >= type(token))) {
+                    out += SortStack.peak();
+                    out += " ";
+                    SortStack.pop();
+                }
+                SortStack.push(token);
+            }
         }
+
         while (SortStack.size != 0) {
-            if (SortStack.peak() == "(") { cout << "ERROR! Extra left bracket" << endl; is_error = 1; break; }
+            if (SortStack.peak() == "(") { cout << "Error! Extra left bracket" << endl; is_error = 1; break; }
             out += SortStack.peak();
             out += " ";
             SortStack.pop();
         }
+
         if (is_error == 0)
-        cout << out << endl;
+        cout << "Your answer: " << out << endl;
     }
     
 };
@@ -491,10 +484,12 @@ public:
 int main()
 {
     Sort_Station Sort;
-    
     string str;
+
     while (str != "x") {
+        cout << "Enter an expression: ";
         getline(cin, str);
         Sort.Sort(str);
+        cout << endl;
     }
 }
