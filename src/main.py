@@ -6,7 +6,8 @@ def sortStation(inputLine):
     functions = ['sin', 'cos']
     stack, result = Stack(), Stack()
     inputLine = inputLine.split()
-    assert inputLine.count('(') == inputLine.count(')'), 'Separator is missed in the input string'
+    assert inputLine.count('(') >= inputLine.count(')'), 'Separator "(" is missed in the input string'
+    assert inputLine.count('(') <= inputLine.count(')'), 'Separator ")" is missed in the input string'
 
     for token in inputLine:
         assert token in availableInput or token.isdigit(), 'Incorrect symbol in the input string'
@@ -38,10 +39,10 @@ def sortStation(inputLine):
     output = ''
     result.reverse()
     while result.size() > 0:
-        output += result.pop()
+        output += f'{result.pop()} '
     return output
 
 
 if __name__ == "__main__":
-    inputLine = '4 * ( cos ( 1 ) * 6 ) * ( 2 + sin ( 3 ) - 7 )'
+    inputLine = '3 * 222 + sin ( 3 )'
     print(sortStation(inputLine))
