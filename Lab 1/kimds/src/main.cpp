@@ -1,18 +1,21 @@
 #include <iostream>
-#include <cstdlib>
 #include <string>
+
 using namespace std;
-class dynamic_array {
+
+class DynamicArray {
 public:
 	int size;
 	int capacity;
 	int* data;
-	dynamic_array() {
+	
+	DynamicArray() {
 		size = 0;
 		capacity = 0;
 		data = nullptr;
 	}
-	dynamic_array(int newsize) {
+	
+	DynamicArray(int newsize) {
 		size = newsize;
 		capacity = size * 2;
 		if (size != 0) {
@@ -23,10 +26,11 @@ public:
 		}
 	}
 
-	~dynamic_array() {
+	~DynamicArray() {
 		delete[] data;
 	}
-	dynamic_array(const dynamic_array& other) {
+	
+	DynamicArray(const DynamicArray& other) {
 		data = new int[other.size];
 		for (int i = 0; i < other.size; i++) {
 			data[i] = other.data[i];
@@ -35,7 +39,7 @@ public:
 		capacity = other.capacity;
 	}
 
-	void push_back(int val) {
+	void PushBack(int val) {
 		if (size == 0) {
 			size++;
 			capacity = size * 2;
@@ -60,12 +64,14 @@ public:
 			}
 		}
 	}
-	int getsize() {
+
+	int GetSize() {
 		return size;
 	}
+
 	void insert(int val, int ind) {
 		if (ind == size) {
-			push_back(val);
+			PushBack(val);
 		}
 		else {
 			if (ind < size) {
@@ -101,7 +107,8 @@ public:
 		}
 
 	}
-	void deletebyind(int ind) {
+
+	void DeleteByInd(int ind) {
 		if (ind < size) {
 			int* new_data = data;
 			data = new int[capacity];
@@ -115,17 +122,20 @@ public:
 			delete[] new_data;
 		}
 	}
-	void print_dynamic_array() {
+
+	void PrintDynamicArray() {
 		for (int i = 0;i < size; i++) {
 			cout << data[i] << " ";
 		}
 	}
+
 	int& operator[](int ind) {
 		if (ind >= size) {
 			cout << "Error" << endl;
 		}
 		return data[ind];
 	}
+
 	int find(int val) {
 		int counter = 0;
 		while ((counter < size) && (val != data[counter])) {
@@ -134,6 +144,7 @@ public:
 		return counter;
 	}
 };
+
 template<typename T>
 class MyList {
 public:
@@ -141,9 +152,11 @@ public:
 		size = 0;
 		head = nullptr;
 	}
+
 	~MyList() {
 		clear();
 	}
+
 	T& operator[] (const int ind) {
 		int counter = 0;
 		Node<T>* cur = this->head;
@@ -155,7 +168,8 @@ public:
 			counter++;
 		}
 	}
-	void push_back(T data) {
+
+	void PushBack(T data) {
 		if (head == nullptr) {
 			head = new Node<T>(data);
 		}
@@ -168,14 +182,16 @@ public:
 		}
 		size++;
 	}
-	int getsize() {
+
+	int GetSize() {
 		return size;
 	}
 
-	void push_front(T data) {
+	void PushFront(T data) {
 		head = new Node<T>(data, head);
 		size++;
 	}
+
 	void insert(T data, int ind) {
 		if (ind == 0) {
 			push_front(data);
@@ -190,7 +206,8 @@ public:
 			size++;
 		}
 	}
-	void deletebyind(int ind) {
+
+	void DeleteByInd(int ind) {
 		if (ind == 0) {
 			Node<T>* tmp = head;
 			head = head->adrNext;
@@ -208,6 +225,7 @@ public:
 			size--;
 		}
 	}
+
 	void clear() {
 		while (size) {
 			Node<T>* tmp = head;
@@ -216,6 +234,7 @@ public:
 			size--;
 		}
 	}
+
 	T find(int val) {
 		Node<T>* tmp = head;
 		int counter = 0;
@@ -240,6 +259,7 @@ private:
 	Node<T>* head;
 	int size;
 };
+
 class Stack {
 	string* data;
 	int size, ind;
@@ -249,9 +269,11 @@ public:
 		data = new string[size];
 		ind = 0;
 	}
+
 	~Stack() {
 		delete[] data;
 	}
+
 	void push(string val) {
 		if (ind == size - 1) {
 			string* new_data = new string[size];
@@ -267,16 +289,20 @@ public:
 		}
 		data[++ind] = val;
 	}
+
 	string pop() {
 		return data[ind--];
 	}
+
 	string peak() {
 		return data[ind];
 	}
-	bool is_empty() {
+
+	bool isEmpty() {
 		return ind == 0;
 	}
 };
+
 int Rang(string act) {
 	if (act == "sin" || act == "cos")
 		return 4;
@@ -303,12 +329,12 @@ string sort(string line) {
 			str = "";
 		}
 		else if (str == "sin" || str == "cos" || str == "^" || str == "*" || str == "/" || str == "+" || str == "-") {
-			if ((Rang(str) > Rang(stack.peak())) && (!stack.is_empty())) {
+			if ((Rang(str) > Rang(stack.peak())) && (!stack.isEmpty())) {
 				stack.push(str);
 				str = "";
 			}
 			else {
-				while ((Rang(str) <= Rang(stack.peak())) && (!stack.is_empty())) {
+				while ((Rang(str) <= Rang(stack.peak())) && (!stack.isEmpty())) {
 					conclusion += (stack.pop() + " ");
 				}
 				stack.push(str);
@@ -341,11 +367,12 @@ string sort(string line) {
 		cout << "Count of left bracket is not equal count of right bracket" << endl;
 		return"";
 	}
-	while (!stack.is_empty()) {
+	while (!stack.isEmpty()) {
 		conclusion += (stack.pop() + " ");
 	}
 	return conclusion;
 }
+
 int main()
 {
 	string str;
