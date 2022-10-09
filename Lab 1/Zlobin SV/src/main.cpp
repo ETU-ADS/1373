@@ -290,11 +290,9 @@ public:
     public:
         string data;
         MyNode* next = nullptr;
-        MyNode* prev = nullptr;
     };
     MyNode* head = nullptr;
     int size = 0;
-    MyNode* end = nullptr;
     
     MyStack() {
     }
@@ -309,44 +307,37 @@ public:
     void push(string newData) {
         if (head == nullptr) {
             head = new MyNode;
-            end = head;
             head->data = newData;
         }
         else {
-            end->next = new MyNode;
-            end->next->prev = end;
-            end = end->next;
-            end->data = newData;
+            MyNode* tmp = head;
+            head = new MyNode;
+            head->data = newData;
+            head->next = tmp;
         }
         size++;
     }
     void pop() {
-        if (head != nullptr)
-            if (head->next != nullptr) {
-                end = end->prev;
-                delete end->next;
-                end->next = nullptr;
-                size--;
-            }
-            else {
-                delete head;
-                head = nullptr;
-                size--;
-            }
+        if (head != nullptr) {
+            MyNode* tmp = head->next;
+            delete head;
+            head = tmp;
+            size--;
+        }          
         else cout << "Error! Stack is empty" << endl;
     }
     string peak() {
         if (size == 0) {
             return ("");
         }
-        return end->data;
+        return head->data;
     }
     void print_data() {
         cout << "////////////////" << endl;
-        MyNode* tmp = end;
+        MyNode* tmp = head;
         while (tmp != nullptr) {
             cout << tmp->data << endl;
-            tmp = tmp->prev;
+            tmp = tmp->next;
         }
         cout << "////////////////" << endl;
     }
