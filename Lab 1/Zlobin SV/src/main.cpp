@@ -407,6 +407,7 @@ public:
                     tmpStack.push(newtoken);
                 else {
                     cout << "Error! Token '" << newtoken << "' is invalid" << endl;
+                    is_error = 1;
                     break;
                 }
                 a1 = i+1;
