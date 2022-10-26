@@ -12,7 +12,7 @@ int main() {
     int const N = 200;
 
     // first parametr - max value, last - amount of numbers
-    //randomNumbers(1000, 2000, N);
+    randomNumbers(1000, 2000, N);
 
     // full mass with rand num
     std::ifstream DATA("rand_num.txt");

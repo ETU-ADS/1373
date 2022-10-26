@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <ctime>
 
 #include "myStack.h"
 
@@ -92,82 +93,82 @@ void MergeSort(int datamass[], int l_ptr, int size_l, int size_r) {
     }
 
     int x = 0, y = 0, i = l_ptr;
+
     int l_iterat = 0, r_iterat = 0;
-    int maxIterat = 20;
+    int maxIterat = 50; //const for switch oo Galloping mode
     int plusIteratL = 1, plusIteratR = 1;
 
-    while (size_l + size_r) {
+    while (x + y < size_l + size_r) {
 
-        if (L_arr[x] <= R_arr[y] && size_l > 0) {
+        if (L_arr[x] <= R_arr[y] && (x < size_l)) {
             datamass[i] = L_arr[x];
             i++; x++;
-            size_l--;
 
+
+            // for Galloping Mode
             r_iterat = 0;
             plusIteratR = 1;
 
             l_iterat++;
+
             if (l_iterat > maxIterat) {
-                plusIteratL *= 2;
-                while (plusIteratL > size_l) {
-                    plusIteratL--;
-                }
-                while (L_arr[x + plusIteratL] <= R_arr[y]) {
-                    for (int p = x; p < x + plusIteratL; p++) {
-                        datamass[i] = L_arr[p];
+                while (L_arr[x + plusIteratL] <= R_arr[y] && (x + plusIteratL < size_l)) {
+                    for (int j = x; j < x + plusIteratL; j++) {
+                        datamass[i] = L_arr[j];
                         i++;
                     }
+                    x += plusIteratL;
+                    plusIteratL *= 2;
                 }
             }
 
             std::cout << "\nMerge message -> plus_iterat, l_iterat: " << plusIteratL << ' ' << l_iterat++;
+            // end for Galloping Mode
         }
-        else if (size_r > 0)
+        else if (y < size_r)
         {
             datamass[i] = R_arr[y];
             i++; 
             y ++;
-            size_r--;
 
+            // for Galloping Mode
             l_iterat = 0;
             plusIteratL = 1;
 
             r_iterat++;
+
             if (r_iterat > maxIterat) {
-                plusIteratR *= 2;
-                while (plusIteratR > size_r) {
-                    plusIteratR--;
-                }
-                while (L_arr[x + plusIteratR] > R_arr[y]) {
-                    for (int p = y; p < y + plusIteratR; p++) {
-                        datamass[i] = R_arr[p];
+                while (L_arr[x] > R_arr[y + plusIteratR] && (y + plusIteratR < size_r)) {
+                    for (int j = y; j < y + plusIteratR;  j++) {
+                        datamass[i] = R_arr[j];
                         i++;
                     }
+                    x += plusIteratR;
+                    plusIteratR *= 2;
                 }
             }
 
             std::cout << "\nMerge message -> plus_iterat, r_iterat: " << plusIteratR << ' ' << r_iterat++;
+            // end for Galloping Mode
         }
 
-        if (size_l == 0) {
-            while (size_r) {
+        // copy if one of arrs is empty
+        if (x >= size_l) {
+            while (y < size_r) {
                 datamass[i] = R_arr[y];
                 i++;
                 y++;
-
-                size_r--;
             }
         }
 
-        if (size_r == 0) {
-            while (size_l) {
+        if (y >= size_r) {
+            while (x < size_l) {
                 datamass[i] = L_arr[x];
                 i++;
                 x++;
-
-                size_l--;
             }
         }
+        // end copy
     }
 
     delete[] L_arr;
@@ -175,6 +176,8 @@ void MergeSort(int datamass[], int l_ptr, int size_l, int size_r) {
 }
 
 void Teamsort(int datamass[], int N) {
+
+    unsigned int start_time = clock();
 
     std::cout << "\nTeamSort massage -> input: ";
     for (int i = 0; i < N; i++) {
@@ -281,7 +284,18 @@ void Teamsort(int datamass[], int N) {
     }
 
     std::cout << "\nTeamSort massage -> output: ";
+    int prevElement = -1;
     for (int i = 0; i < N; i++) {
+        if (prevElement > datamass[i]) {
+            std::cout << "\nTeamSort massage -> ERROR: UNCORRECT PROCESS";
+            break;
+        }
+        else
+            prevElement = datamass[i];
+
         std::cout << datamass[i] << ' ';
     }
+
+    unsigned int end_time = clock(); 
+    std::cout << "\nWork time: " << end_time - start_time;
 }
