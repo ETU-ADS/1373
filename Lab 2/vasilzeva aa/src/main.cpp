@@ -2,8 +2,6 @@
 #include <fstream>
 
 #include "randNum.h"
-#include "myList.h"
-#include "myVector.h"
 #include "myStack.h"
 #include "mySorts.h"
 
