@@ -9,10 +9,12 @@
 
 
 int main() {
-    int const N = 200;
+    int const N = 500;
+    int minValue = 1, maxValue = 2000;
 
-    // first parametr - max value, last - amount of numbers
-    randomNumbers(1000, 2000, N);
+    // first parametr - min value, middle - max value, last - amount of numbers
+    randomNumbers(minValue, maxValue, N);
+    std::cout << "For rand numbers (in amount of "<< N << ") from " << minValue << " to " << maxValue << " your sort array is:\n\n";
 
     // full mass with rand num
     std::ifstream DATA("rand_num.txt");

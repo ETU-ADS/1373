@@ -26,10 +26,10 @@ T min(T x, T y) {
 
 void ReverseArr(int* run, int size) {
 
-    std::cout << "\nReverse message -> input: ";
-    for (int i = 0; i < size; i++) {
-        std::cout << run[i] << ' ';
-    }
+    //std::cout << "\nReverse message -> input: ";
+    //for (int i = 0; i < size; i++) {
+    //    std::cout << run[i] << ' ';
+    //}
 
     for (int i = 0; i < (size) / 2; i++) {
         run[i] = run[i] + run[(size - 1) - i];
@@ -37,18 +37,18 @@ void ReverseArr(int* run, int size) {
         run[i] = run[i] - run[(size - 1) - i];
     }
 
-    std::cout << "\nReverse message -> output: ";
-    for (int i = 0; i < size; i++) {
-        std::cout << run[i] << ' ';
-    }
+    //std::cout << "\nReverse message -> output: ";
+    //for (int i = 0; i < size; i++) {
+    //    std::cout << run[i] << ' ';
+    //}
 }
 
 void InsertSort(int* run, int size) {
 
-    std::cout << "\nInsertSort message -> input: ";
-    for (int i = 0; i < size; i++) {
-        std::cout << run[i] << ' ';
-    }
+    //std::cout << "\nInsertSort message -> input: ";
+    //for (int i = 0; i < size; i++) {
+    //    std::cout << run[i] << ' ';
+    //}
 
     for (int i = 1; i < size; i++) {
         int key = run[i];
@@ -60,10 +60,10 @@ void InsertSort(int* run, int size) {
         run[j + 1] = key;
     }
 
-    std::cout << "\nInsertSort message -> output: ";
-    for (int i = 0; i < size; i++) {
-        std::cout << run[i] << ' ';
-    }
+    //std::cout << "\nInsertSort message -> output: ";
+    //for (int i = 0; i < size; i++) {
+    //    std::cout << run[i] << ' ';
+    //}
 }
 
 void MergeSort(int datamass[], int l_ptr, int size_l, int size_r) {
@@ -77,20 +77,20 @@ void MergeSort(int datamass[], int l_ptr, int size_l, int size_r) {
         L_arr[i] = datamass[l_ptr + i];
     }
 
-    std::cout << "\nMerge message -> L_arr: ";
-    for (int i = 0; i < size_l; i++) {
-        std::cout << L_arr[i] << ' ';
-    }
+    //std::cout << "\nMerge message -> L_arr: ";
+    //for (int i = 0; i < size_l; i++) {
+    //    std::cout << L_arr[i] << ' ';
+    //}
 
 
     for (int i = 0; i < size_r; i++) {
         R_arr[i] = datamass[r_ptr + i];
     }
 
-    std::cout << "\nMerge message -> R_arr: ";
-    for (int i = 0; i < size_r; i++) {
-        std::cout << R_arr[i] << ' ';
-    }
+    //std::cout << "\nMerge message -> R_arr: ";
+    //for (int i = 0; i < size_r; i++) {
+    //    std::cout << R_arr[i] << ' ';
+    //}
 
     int x = 0, y = 0, i = l_ptr;
 
@@ -121,8 +121,6 @@ void MergeSort(int datamass[], int l_ptr, int size_l, int size_r) {
                     plusIteratL *= 2;
                 }
             }
-
-            std::cout << "\nMerge message -> plus_iterat, l_iterat: " << plusIteratL << ' ' << l_iterat++;
             // end for Galloping Mode
         }
         else if (y < size_r)
@@ -147,8 +145,6 @@ void MergeSort(int datamass[], int l_ptr, int size_l, int size_r) {
                     plusIteratR *= 2;
                 }
             }
-
-            std::cout << "\nMerge message -> plus_iterat, r_iterat: " << plusIteratR << ' ' << r_iterat++;
             // end for Galloping Mode
         }
 
@@ -179,21 +175,21 @@ void Teamsort(int datamass[], int N) {
 
     unsigned int start_time = clock();
 
-    std::cout << "\nTeamSort massage -> input: ";
-    for (int i = 0; i < N; i++) {
-        std::cout << datamass[i] << ' ';
-    }
+    //std::cout << "\nTeamSort massage -> input: ";
+    //for (int i = 0; i < N; i++) {
+    //    std::cout << datamass[i] << ' ';
+    //}
 
     myStack<RUN> runStack;
     RUN run;
 
     int minrun = Minrun(N);
-    std::cout << "\nTeamSort message -> minrun: " << minrun;
+    //std::cout << "\nTeamSort message -> minrun: " << minrun;
     run.indexBegin = 0;
     run.size = 1;
 
     for (int i = 1; i < N; ) {
-        std::cout << "\nTeamSort message -> i: " << i;
+        //std::cout << "\nTeamSort message -> i: " << i;
         if (datamass[i - 1] <= datamass[i]) {
             while (run.size < minrun) {
                 if (datamass[i - 1] <= datamass[i] && i < N) {
@@ -216,7 +212,7 @@ void Teamsort(int datamass[], int N) {
                     }
                 }
             }
-            std::cout << "\nTeamSort message -> if <= i: " << i;
+            //std::cout << "\nTeamSort message -> if <= i: " << i;
         }
 
         if (datamass[i - 1] > datamass[i]) {
@@ -243,14 +239,14 @@ void Teamsort(int datamass[], int N) {
                     }
                 }
             }
-            std::cout << "\nTeamSort message -> if > i: " << i;
+            //std::cout << "\nTeamSort message -> if > i: " << i;
         }
     }
 
-    std::cout << "\nTeamSort massage -> stack: ";
-    for (int i = 0; i < N; i++) {
-        std::cout << datamass[i] << ' ';
-    }
+    //std::cout << "\nTeamSort massage -> stack: ";
+    //for (int i = 0; i < N; i++) {
+    //    std::cout << datamass[i] << ' ';
+    //}
 
     while (!runStack.isEmpty()) {
 
@@ -258,32 +254,32 @@ void Teamsort(int datamass[], int N) {
         X = runStack.peak();
         runStack.pop();
 
-        std::cout << "\nrunSrack massage -> X: ";
-        for (int i = X.indexBegin; i < X.indexBegin + X.size; i++) {
-            std::cout << datamass[i] << ' ';
-        }
+        //std::cout << "\nrunSrack massage -> X: ";
+        //for (int i = X.indexBegin; i < X.indexBegin + X.size; i++) {
+        //    std::cout << datamass[i] << ' ';
+        //}
 
         if (runStack.isEmpty()) { break; }
 
         Y = runStack.peak();
         runStack.pop();
-        std::cout << "\nrunSrack massage -> Y: ";
-        for (int i = Y.indexBegin; i < Y.indexBegin + Y.size; i++) {
-            std::cout << datamass[i] << ' ';
-        }
+        //std::cout << "\nrunSrack massage -> Y: ";
+        //for (int i = Y.indexBegin; i < Y.indexBegin + Y.size; i++) {
+        //    std::cout << datamass[i] << ' ';
+        //}
 
         MergeSort(datamass, Y.indexBegin, Y.size, X.size);
         X.indexBegin = min(X.indexBegin, Y.indexBegin);
         X.size = X.size + Y.size;
-        std::cout << "\nrunSrack massage -> new X: ";
-        for (int i = X.indexBegin; i < X.indexBegin + X.size; i++) {
-            std::cout << datamass[i] << ' ';
-        }
+        //std::cout << "\nrunSrack massage -> new X: ";
+        //for (int i = X.indexBegin; i < X.indexBegin + X.size; i++) {
+        //    std::cout << datamass[i] << ' ';
+        //}
 
         runStack.push(X);
     }
 
-    std::cout << "\nTeamSort massage -> output: ";
+    //std::cout << "\nTeamSort massage -> output: ";
     int prevElement = -1;
     for (int i = 0; i < N; i++) {
         if (prevElement > datamass[i]) {
@@ -297,5 +293,5 @@ void Teamsort(int datamass[], int N) {
     }
 
     unsigned int end_time = clock(); 
-    std::cout << "\nWork time: " << end_time - start_time;
+    std::cout << "\nWork time: " << end_time - start_time << " ms";
 }
