@@ -46,15 +46,58 @@ def merge(arr: DynamicArray, l: int, m: int, r: int):
     for i in range(0, len2):
         right.append(arr[m + 1 + i])
 
+    max_count = 2
+    left_count = 0
+    right_count = 0
     i, j, k = 0, 0, l
-    while i < len1 and j < len2:
+    while i < len1 - 1 and j < len2 - 1:
         if left[i] <= right[j]:
             arr[k] = left[i]
             i += 1
+            left_count += 1
+            right_count = 0
         else:
             arr[k] = right[j]
             j += 1
+            right_count += 1
+            left_count = 0
         k += 1
+
+        if left_count >= max_count:
+            left_count = 0
+            right_count = 0
+            start = i
+            n = 1
+
+            while i < len1:
+                i = i + (2 ** n)
+                if i < len1 and left[i] <= right[j]:
+                    n += 1
+                else:
+                    i = i - (2 ** n)
+                    break
+
+            for m in range(start, i):
+                arr[k] = left[m]
+                k += 1
+
+        if right_count >= max_count:
+            left_count = 0
+            right_count = 0
+            start = j
+            n = 1
+
+            while j < len2:
+                j = j + (2 ** n)
+                if j < len2 and right[j] <= left[i]:
+                    n += 1
+                else:
+                    j = j - (2 ** n)
+                    break
+
+            for m in range(start, j):
+                arr[k] = right[m]
+                k += 1
 
     while i < len1:
         arr[k] = left[i]
