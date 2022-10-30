@@ -3,6 +3,7 @@
 #include <ctime>
 
 #include "myStack.h"
+#include "myVector.h"
 
 int Minrun(int N) {
     int r = 0;          
@@ -66,12 +67,12 @@ void InsertSort(int* run, int size) {
     //}
 }
 
-void MergeSort(int datamass[], int l_ptr, int size_l, int size_r) {
+void MergeSort(myVector<int>& datamass, int l_ptr, int size_l, int size_r) {
 
     int r_ptr = l_ptr + size_l;
 
-    int* L_arr = new int[size_l];
-    int* R_arr = new int[size_r];
+    myVector<int> L_arr(size_l);
+    myVector<int> R_arr(size_r);
 
     for (int i = 0; i < size_l; i++) {
         L_arr[i] = datamass[l_ptr + i];
@@ -95,7 +96,7 @@ void MergeSort(int datamass[], int l_ptr, int size_l, int size_r) {
     int x = 0, y = 0, i = l_ptr;
 
     int l_iterat = 0, r_iterat = 0;
-    int maxIterat = 50; //const for switch oo Galloping mode
+    int maxIterat = 10; //const for switch oo Galloping mode
     int plusIteratL = 1, plusIteratR = 1;
 
     while (x + y < size_l + size_r) {
@@ -112,22 +113,23 @@ void MergeSort(int datamass[], int l_ptr, int size_l, int size_r) {
             l_iterat++;
 
             if (l_iterat > maxIterat) {
-                while (L_arr[x + plusIteratL] <= R_arr[y] && (x + plusIteratL < size_l)) {
+                while (L_arr[x + plusIteratL] <= R_arr[y] && x + plusIteratL < size_l && y < size_r) {
                     for (int j = x; j < x + plusIteratL; j++) {
                         datamass[i] = L_arr[j];
                         i++;
                     }
                     x += plusIteratL;
-                    plusIteratL *= 2;
+                    plusIteratL += 1;
                 }
+                l_iterat = 0;
+                plusIteratL = 1;
             }
             // end for Galloping Mode
         }
         else if (y < size_r)
         {
             datamass[i] = R_arr[y];
-            i++; 
-            y ++;
+            i++; y++;
 
             // for Galloping Mode
             l_iterat = 0;
@@ -136,14 +138,16 @@ void MergeSort(int datamass[], int l_ptr, int size_l, int size_r) {
             r_iterat++;
 
             if (r_iterat > maxIterat) {
-                while (L_arr[x] > R_arr[y + plusIteratR] && (y + plusIteratR < size_r)) {
-                    for (int j = y; j < y + plusIteratR;  j++) {
+                while (L_arr[x] > R_arr[y + plusIteratR] && y + plusIteratR < size_r && x < size_l) {
+                    for (int j = y; j < y + plusIteratR; j++) {
                         datamass[i] = R_arr[j];
                         i++;
                     }
-                    x += plusIteratR;
-                    plusIteratR *= 2;
+                    y += plusIteratR;
+                    plusIteratR += 1;
                 }
+                r_iterat = 0;
+                plusIteratR = 1;
             }
             // end for Galloping Mode
         }
@@ -166,14 +170,9 @@ void MergeSort(int datamass[], int l_ptr, int size_l, int size_r) {
         }
         // end copy
     }
-
-    delete[] L_arr;
-    delete[] R_arr;
 }
 
-void Teamsort(int datamass[], int N) {
-
-    unsigned int start_time = clock();
+void Teamsort(myVector<int>& datamass, int N) {
 
     //std::cout << "\nTeamSort massage -> input: ";
     //for (int i = 0; i < N; i++) {
@@ -191,8 +190,8 @@ void Teamsort(int datamass[], int N) {
     for (int i = 1; i < N; ) {
         //std::cout << "\nTeamSort message -> i: " << i;
         if (datamass[i - 1] <= datamass[i]) {
-            while (run.size < minrun) {
-                if (datamass[i - 1] <= datamass[i] && i < N) {
+            while (run.size < N) {
+                if (datamass[i - 1] <= datamass[i]) {
                     run.size++;
                     i++;
                 }
@@ -216,7 +215,7 @@ void Teamsort(int datamass[], int N) {
         }
 
         if (datamass[i - 1] > datamass[i]) {
-            while (run.size < minrun) {
+            while (run.size < N) {
                 if (datamass[i - 1] > datamass[i] && i < N) {
                     run.size++;
                     i++;
@@ -250,10 +249,9 @@ void Teamsort(int datamass[], int N) {
 
     while (!runStack.isEmpty()) {
 
-        RUN X, Y;
+        RUN X, Y, Z;
         X = runStack.peak();
         runStack.pop();
-
         //std::cout << "\nrunSrack massage -> X: ";
         //for (int i = X.indexBegin; i < X.indexBegin + X.size; i++) {
         //    std::cout << datamass[i] << ' ';
@@ -268,30 +266,41 @@ void Teamsort(int datamass[], int N) {
         //    std::cout << datamass[i] << ' ';
         //}
 
-        MergeSort(datamass, Y.indexBegin, Y.size, X.size);
-        X.indexBegin = min(X.indexBegin, Y.indexBegin);
-        X.size = X.size + Y.size;
+        if (Y.size >= X.size || runStack.isEmpty()) {
+            MergeSort(datamass, Y.indexBegin, Y.size, X.size);
+            X.indexBegin = min(X.indexBegin, Y.indexBegin);
+            X.size = X.size + Y.size;
+            runStack.push(X);
+        }
+        else {
+            Z = runStack.peak();
+            runStack.pop();
+            
+            MergeSort(datamass, Z.indexBegin, Z.size, Y.size);
+            Y.indexBegin = min(Y.indexBegin, Z.indexBegin);
+            Y.size = Y.size + Z.size;
+
+            runStack.push(Y);
+            runStack.push(X);
+        }
+
         //std::cout << "\nrunSrack massage -> new X: ";
         //for (int i = X.indexBegin; i < X.indexBegin + X.size; i++) {
         //    std::cout << datamass[i] << ' ';
         //}
-
-        runStack.push(X);
     }
 
     //std::cout << "\nTeamSort massage -> output: ";
-    int prevElement = -1;
-    for (int i = 0; i < N; i++) {
-        if (prevElement > datamass[i]) {
-            std::cout << "\nTeamSort massage -> ERROR: UNCORRECT PROCESS";
-            break;
-        }
-        else
-            prevElement = datamass[i];
+    //int prevElement = -1;
+    //for (int i = 0; i < N; i++) {
+    //    int y = datamass[i];
+    //    if (prevElement > y) {
+    //        std::cout << "\nTeamSort massage -> ERROR: UNCORRECT PROCESS";
+    //        break;
+    //    }
+    //    else
+    //        prevElement = datamass[i];
 
-        std::cout << datamass[i] << ' ';
-    }
-
-    unsigned int end_time = clock(); 
-    std::cout << "\nWork time: " << end_time - start_time << " ms";
+    //    std::cout << datamass[i] << ' ';
+    //}
 }
