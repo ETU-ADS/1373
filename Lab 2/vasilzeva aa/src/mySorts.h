@@ -83,7 +83,6 @@ void MergeSort(myVector<int>& datamass, int l_ptr, int size_l, int size_r) {
     //    std::cout << L_arr[i] << ' ';
     //}
 
-
     for (int i = 0; i < size_r; i++) {
         R_arr[i] = datamass[r_ptr + i];
     }
@@ -100,11 +99,9 @@ void MergeSort(myVector<int>& datamass, int l_ptr, int size_l, int size_r) {
     int plusIteratL = 1, plusIteratR = 1;
 
     while (x + y < size_l + size_r) {
-
         if (L_arr[x] <= R_arr[y] && (x < size_l)) {
             datamass[i] = L_arr[x];
             i++; x++;
-
 
             // for Galloping Mode
             r_iterat = 0;
@@ -172,7 +169,7 @@ void MergeSort(myVector<int>& datamass, int l_ptr, int size_l, int size_r) {
     }
 }
 
-void Teamsort(myVector<int>& datamass, int N) {
+void Timsort(myVector<int>& datamass, int N) {
 
     //std::cout << "\nTeamSort massage -> input: ";
     //for (int i = 0; i < N; i++) {
@@ -190,8 +187,8 @@ void Teamsort(myVector<int>& datamass, int N) {
     for (int i = 1; i < N; ) {
         //std::cout << "\nTeamSort message -> i: " << i;
         if (datamass[i - 1] <= datamass[i]) {
-            while (run.size < N) {
-                if (datamass[i - 1] <= datamass[i]) {
+            while (1) {
+                if (datamass[i - 1] <= datamass[i] && i < N) {
                     run.size++;
                     i++;
                 }
@@ -202,20 +199,20 @@ void Teamsort(myVector<int>& datamass, int N) {
                             i++;
                         }
                         InsertSort(&datamass[run.indexBegin], run.size);
-
-                        runStack.push(run);
-                        run.indexBegin = i;
-                        run.size = 1;
-                        i++;
-                        break;
                     }
+
+                    runStack.push(run);
+                    run.indexBegin = i;
+                    run.size = 1;
+                    i++;
+                    break;
                 }
             }
             //std::cout << "\nTeamSort message -> if <= i: " << i;
         }
 
         if (datamass[i - 1] > datamass[i]) {
-            while (run.size < N) {
+            while (1) {
                 if (datamass[i - 1] > datamass[i] && i < N) {
                     run.size++;
                     i++;
@@ -230,12 +227,13 @@ void Teamsort(myVector<int>& datamass, int N) {
                         }
                         InsertSort(&datamass[run.indexBegin], run.size);
 
-                        runStack.push(run);
-                        run.indexBegin = i;
-                        run.size = 1;
-                        i++;
-                        break;
                     }
+
+                    runStack.push(run);
+                    run.indexBegin = i;
+                    run.size = 1;
+                    i++;
+                    break;
                 }
             }
             //std::cout << "\nTeamSort message -> if > i: " << i;
@@ -247,47 +245,137 @@ void Teamsort(myVector<int>& datamass, int N) {
     //    std::cout << datamass[i] << ' ';
     //}
 
+    //while (!runStack.isEmpty()) {
+
+    //    RUN X, Y, Z;
+    //    X = runStack.peak();
+    //    runStack.pop();
+    //    //std::cout << "\nrunSrack massage -> X: ";
+    //    //for (int i = X.indexBegin; i < X.indexBegin + X.size; i++) {
+    //    //    std::cout << datamass[i] << ' ';
+    //    //}
+
+    //    if (runStack.isEmpty()) { break; }
+
+    //    Y = runStack.peak();
+    //    runStack.pop();
+    //    //std::cout << "\nrunSrack massage -> Y: ";
+    //    //for (int i = Y.indexBegin; i < Y.indexBegin + Y.size; i++) {
+    //    //    std::cout << datamass[i] << ' ';
+    //    //}
+
+    //    if (Y.size >= X.size || runStack.isEmpty()) {
+    //        MergeSort(datamass, Y.indexBegin, Y.size, X.size);
+    //        X.indexBegin = min(X.indexBegin, Y.indexBegin);
+    //        X.size = X.size + Y.size;
+    //        runStack.push(X);
+    //    }
+    //    else {
+    //        Z = runStack.peak();
+    //        runStack.pop();
+
+    //        if (1);
+    //        MergeSort(datamass, Z.indexBegin, Z.size, Y.size);
+    //        Y.indexBegin = min(Y.indexBegin, Z.indexBegin);
+    //        Y.size = Y.size + Z.size;
+
+    //        runStack.push(Y);
+    //        runStack.push(X);
+    //    }
+    //}
+
+    //    //std::cout << "\nrunSrack massage -> new X: ";
+    //    //for (int i = X.indexBegin; i < X.indexBegin + X.size; i++) {
+    //    //    std::cout << datamass[i] << ' ';
+    //    //}
+    //}
+
+    RUN X, Y, Z;
+
+    X.size = 0;
+    Y.size = 0;
+    Z.size = 0;
+
+    int balanSize = 0;
+
+    X = runStack.peak();
+    runStack.pop();
+    balanSize++;
+
     while (!runStack.isEmpty()) {
 
-        RUN X, Y, Z;
-        X = runStack.peak();
-        runStack.pop();
-        //std::cout << "\nrunSrack massage -> X: ";
-        //for (int i = X.indexBegin; i < X.indexBegin + X.size; i++) {
-        //    std::cout << datamass[i] << ' ';
-        //}
+        if (!runStack.isEmpty() && Y.size == 0) {
+            Y = runStack.peak();
+            runStack.pop();
 
-        if (runStack.isEmpty()) { break; }
-
-        Y = runStack.peak();
-        runStack.pop();
-        //std::cout << "\nrunSrack massage -> Y: ";
-        //for (int i = Y.indexBegin; i < Y.indexBegin + Y.size; i++) {
-        //    std::cout << datamass[i] << ' ';
-        //}
-
-        if (Y.size >= X.size || runStack.isEmpty()) {
-            MergeSort(datamass, Y.indexBegin, Y.size, X.size);
-            X.indexBegin = min(X.indexBegin, Y.indexBegin);
-            X.size = X.size + Y.size;
-            runStack.push(X);
+            balanSize++;
         }
-        else {
+
+        if (!runStack.isEmpty() && Z.size == 0) {
             Z = runStack.peak();
             runStack.pop();
-            
-            MergeSort(datamass, Z.indexBegin, Z.size, Y.size);
-            Y.indexBegin = min(Y.indexBegin, Z.indexBegin);
-            Y.size = Y.size + Z.size;
 
-            runStack.push(Y);
-            runStack.push(X);
+            balanSize++;
         }
 
-        //std::cout << "\nrunSrack massage -> new X: ";
-        //for (int i = X.indexBegin; i < X.indexBegin + X.size; i++) {
-        //    std::cout << datamass[i] << ' ';
-        //}
+        while ((X.size >= Y.size || Z.size <= X.size + Y.size) && balanSize > 1) {
+            if (balanSize >= 2 && X.size >= Y.size) {
+                MergeSort(datamass, Y.indexBegin, Y.size, X.size);
+                X.indexBegin = min(X.indexBegin, Y.indexBegin);
+                X.size = X.size + Y.size;
+
+                if (Z.size != 0) {
+                    Y = Z;
+                }
+                else break;
+
+                balanSize--;
+
+                if (!runStack.isEmpty()) {
+                    Z = runStack.peak();
+                    runStack.pop();
+
+                    balanSize++;
+                }
+            }
+
+            if (balanSize >= 3 && Z.size <= X.size + Y.size) {
+
+                if (X.size <= Z.size) {
+                    MergeSort(datamass, Y.indexBegin, Y.size, X.size);
+                    X.indexBegin = min(X.indexBegin, Y.indexBegin);
+                    X.size = X.size + Y.size;
+
+                    Y = Z;
+                    Z.size = 0;
+
+                    balanSize--;
+
+                    if (!runStack.isEmpty()) {
+                        Z = runStack.peak();
+                        runStack.pop();
+
+                        balanSize++;
+                    }
+                }
+                else
+                {
+                    MergeSort(datamass, Z.indexBegin, Z.size, Y.size);
+                    Y.indexBegin = min(Y.indexBegin, Z.indexBegin);
+                    Y.size = Y.size + Z.size;
+                    Z.size = 0;
+
+                    balanSize--;
+
+                    if (!runStack.isEmpty()) {
+                        Z = runStack.peak();
+                        runStack.pop();
+
+                        balanSize++;
+                    }
+                }
+            }
+        }
     }
 
     //std::cout << "\nTeamSort massage -> output: ";
