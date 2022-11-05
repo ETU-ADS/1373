@@ -5,6 +5,8 @@
 using namespace std;
 #define SIZE 100
 
+void algorythm();
+
 // ARRAY
 class Arr {
 private:
@@ -52,7 +54,7 @@ public:
 
     void deleteElement(int i)
     {
-        if (i<0 || i>capacity)
+        if (i<0 || i>=capacity)
             cout<<"Number is out of range!"<<endl;
         else{
             int *tempArr = new int[capacity-1];
@@ -74,7 +76,7 @@ public:
 
     void addElement(int i, int val)
     {
-        if (i<0 || i>capacity)
+        if (i<0 || i>=capacity)
             cout<<"Number is out of range!"<<endl;
         else{
             int *tempArr = new int[capacity+1];
@@ -261,12 +263,14 @@ int operatorRank(string str)
 
 void sortString(Stack& stackOperators, string word)
 {
+    bool checkBranch = true;
     if(check_number(word))
             cout<<word<<" ";
         else if(word == "sin" || word == "cos")
             stackOperators.push(word);
-        else if(word == "(")
+        else if(word == "("){
             stackOperators.push(word);
+        }
         else if(word == ")")
         {
             while(stackOperators.stackSize()>0 && stackOperators.topElement()!="(")
@@ -274,6 +278,11 @@ void sortString(Stack& stackOperators, string word)
                 cout<<stackOperators.topElement()<<" ";
                 stackOperators.pop();
             }
+            if (stackOperators.stackSize()==0){
+                cout<<"\nERROR! Check Your branches"<<endl;
+                algorythm();
+            }
+            else
                 stackOperators.pop();
                 if(stackOperators.topElement()=="sin" || stackOperators.topElement()=="cos")
                 {
@@ -290,6 +299,8 @@ void sortString(Stack& stackOperators, string word)
             }
             stackOperators.push(word);
         }
+        if(checkBranch == false)
+            cout<<"ERR"<<endl;
 }
 
 void algorythm()
@@ -326,9 +337,12 @@ void algorythm()
             }
         }
         sortString(stackOperators, word);
-
         while(stackOperators.stackSize()>0)
         {
+            if(stackOperators.topElement() == "("){
+                cout<<"\nERROR! Check Your branches"<<endl;
+                algorythm();
+            }
             cout<<stackOperators.topElement()<<" ";
             stackOperators.pop();
         }
@@ -338,7 +352,7 @@ void algorythm()
 
 void arrayInterface()
 {
-    system("clear");
+    system("cls");
 
     int arrSize;
     cout<<"Input size of Array"<<endl;
@@ -349,7 +363,7 @@ void arrayInterface()
     while(func != 6){
         cout<<"\n1 - input elements manualy\n2 - input random elements\n3 - delete element\n4 - add element\n5 - print array\n6 - exit"<<endl;
         cin>>func;
-        system("clear");
+        system("cls");
         switch(func)
         {
         case 1:
@@ -396,7 +410,7 @@ void arrayInterface()
 
 void listInterface()
 {
-    system("clear");
+    system("cls");
 
     List testList;
     int func;
@@ -404,7 +418,7 @@ void listInterface()
     while(func != 6){
         cout<<"\n1 - generate random number of nodes\n2 - add node\n3 - delete node\n4 - print list\n5 - get list size\n6 - exit"<<endl;
         cin>>func;
-        system("clear");
+        system("cls");
         switch(func)
         {
         case 1:
@@ -451,7 +465,7 @@ int interface()
 {
     int func;
     while(func != 4){
-        system("clear");
+        system("cls");
         cout<<"1 - dynamic array example\n2 - list example\n3 - Shunting yard algorithm\n4 - exit"<<endl;
         cin>>func;
         switch(func)
