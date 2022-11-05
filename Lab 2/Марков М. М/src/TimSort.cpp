@@ -57,6 +57,10 @@ namespace {
                             if (gallopingIndex + counter <= midIndex) {
                                 gallopingIndex += counter;
                             }
+                            else if (tempArray[midIndex] <= tempArray[midIndex + 2 + j]){
+                                gallopingIndex = midIndex;
+                                break;
+                            }
                             else {
                                 break;
                             }
@@ -75,6 +79,10 @@ namespace {
                         for (counter = 2; tempArray[startIndex + i] > tempArray[gallopingIndex]; counter *= 2) {
                             if (gallopingIndex + counter <= endIndex) {
                                 gallopingIndex += counter;
+                            }
+                            else if (tempArray[startIndex + i] > tempArray[endIndex]) {
+                                gallopingIndex = endIndex;
+                                break;
                             }
                             else {
                                 break;
@@ -151,6 +159,7 @@ void sort(DynamicArray<int> &arrayToSort) {
             }
             else runSize = arrayToSort.length() - currentIndex;
         }
+
         insertionSort(arrayToSort, currentIndex, currentIndex + runSize-1);
 
         pair.index = currentIndex;
@@ -232,11 +241,4 @@ void sort(DynamicArray<int> &arrayToSort) {
             stack.push({ second.index, first.size + second.size });
         }
     }
-
-    int len = arrayToSort.length();
-
-    for (int i = 0; i < len; ++i) {
-        std::cout << arrayToSort[i] << " ";
-    }
-    std::cout << "\n\n";
 }
