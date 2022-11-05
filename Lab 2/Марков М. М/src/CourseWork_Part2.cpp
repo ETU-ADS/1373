@@ -12,15 +12,32 @@ int main()
     dinArray.add(543);
     dinArray.add(342);
     dinArray.add(123);
+    // creating array
     for (int i = 0; i < 543; ++i) { //543
         dinArray.add(rand());
         std::cout << dinArray[i] << " ";
     }
     std::cout << "\n\n";
-    sort(dinArray);
+
     sort(dinArray);
 
-    for (int i = 0; i < 546/2; ++i) {
+    int len = dinArray.length();
+
+    // after first sort
+    for (int i = 0; i < len; ++i) {
+        std::cout << dinArray[i] << " ";
+    }
+    std::cout << "\n\n";
+
+    sort(dinArray);
+
+    // sort after sort
+    for (int i = 0; i < len; ++i) {
+        std::cout << dinArray[i] << " ";
+    }
+    std::cout << "\n\n";
+
+    for (int i = 0; i < len/2; ++i) {
         dinArray.swap(i, dinArray.length() - 1 - i);
     }
     for (int i = 0; i < 546; ++i) {
@@ -28,6 +45,12 @@ int main()
     }
     std::cout << "\n\n";
     sort(dinArray);
+
+    // descending array sort
+    for (int i = 0; i < len; ++i) {
+        std::cout << dinArray[i] << " ";
+    }
+    std::cout << "\n\n";
 
     system("pause");
 }
