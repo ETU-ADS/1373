@@ -1,2 +1,3 @@
-# Second laboratory work [WIP]
-Second laboratory work for the discipline "Algorithms and Data Structures" in group 1373
+## Собрать проект в Microsoft Visual Studio
+# ЛИБО
+## Скопировать код из .h и .cpp файлов и собрать его в каком-либо ином C++ компиляторе.
