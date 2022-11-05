@@ -50,17 +50,30 @@ public:
 	void deleteItem(int index);//удаляем по индексу
 	unsigned find(T index);//поиск по значение
 	int size();//
+<<<<<<< Updated upstream
+=======
+	void seek();
+>>>>>>> Stashed changes
 	void print();
 	T getLast();//получаем последний элемент
 	T& operator[](int index);
 	ArrayList();
 	ArrayList(int count);//создаём массив длиной count
+<<<<<<< Updated upstream
 	~ArrayList();
 
+=======
+	ArrayList(T* , int count);
+	~ArrayList();
+	void insertionSort(int left, int right);
+>>>>>>> Stashed changes
 private:
 	T* arr = nullptr;
 	int lastItemIndex = 0;//индекс будущего последнего элемента
 	int maxSize = 0;//максимальный размер 
 	void expansionArr();
 };
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes

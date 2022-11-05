@@ -363,7 +363,29 @@ unsigned ArrayList<T>::find(T index)
 		}
 	}
 }
+<<<<<<< Updated upstream
 
+=======
+template<typename T>
+inline void ArrayList<T>::seek()
+{
+}
+template<typename T>
+void ArrayList<T>::insertionSort(int left, int right)
+{
+	for (int i = left + 1; i <= right; i++)//+1 тк первый элемент задвигать нам некуда
+	{
+		int current = arr[i];
+		int prevIndex = i - 1;
+		while ((prevIndex >= left) && (arr[prevIndex] > current))
+		{
+			arr[prevIndex + 1] = arr[prevIndex];
+			prevIndex--;
+		}
+		arr[prevIndex + 1] = current;
+	}
+}
+>>>>>>> Stashed changes
 template<typename T>
 int ArrayList<T>::size()
 {
@@ -375,6 +397,7 @@ void ArrayList<T>::print()
 {
 	for (int i = 0; i < maxSize; i++)
 	{
+<<<<<<< Updated upstream
 		if (arr[i] == 's')
 		{
 			cout << "sin" << " ";
@@ -391,6 +414,9 @@ void ArrayList<T>::print()
 				cout << arr[i] << " ";
 			}
 		}
+=======
+		cout << arr[i] << endl;
+>>>>>>> Stashed changes
 	}
 }
 template<typename T>
@@ -402,7 +428,11 @@ template<typename T>
 T& ArrayList<T>::operator[](int index)
 {
 	assert((index >= maxSize) == false);//?
+<<<<<<< Updated upstream
 	return arr[index];
+=======
+	return this.arr[index];
+>>>>>>> Stashed changes
 }
 template<typename T>
 ArrayList<T>::ArrayList()
@@ -418,6 +448,12 @@ ArrayList<T>::ArrayList(int count)
 		arr[i] = 0;
 	}
 }
+<<<<<<< Updated upstream
+=======
+
+
+
+>>>>>>> Stashed changes
 template<typename T>
 ArrayList<T>::~ArrayList()
 {
