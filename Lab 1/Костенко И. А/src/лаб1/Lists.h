@@ -1,4 +1,4 @@
-#pragma once
+п»ї#pragma once
 template<typename T>
 struct Item
 {
@@ -9,18 +9,18 @@ template<typename T>
 class LinkedList
 {
 private:
-	Item<T>* head = new Item<T>();//корень списка
+	Item<T>* head = new Item<T>();//РєРѕСЂРµРЅСЊ СЃРїРёСЃРєР°
 
 public:
 	LinkedList();
 	LinkedList(const int count);
 	~LinkedList();
 	Item<T>& operator[](int index);
-	bool deleteItem(unsigned pos);//удаление по индексу
-	unsigned find(T item);//поиск индекса.
-	bool add(T field, unsigned index);//вставка по индексу.
-	unsigned size();//получить размер списка
-	void print();//вывод
+	bool deleteItem(unsigned pos);//СѓРґР°Р»РµРЅРёРµ РїРѕ РёРЅРґРµРєСЃСѓ
+	unsigned find(T item);//РїРѕРёСЃРє РёРЅРґРµРєСЃР°.
+	bool add(T field, unsigned index);//РІСЃС‚Р°РІРєР° РїРѕ РёРЅРґРµРєСЃСѓ.
+	unsigned size();//РїРѕР»СѓС‡РёС‚СЊ СЂР°Р·РјРµСЂ СЃРїРёСЃРєР°
+	void print();//РІС‹РІРѕРґ
 };
 
 template<typename T>
@@ -32,12 +32,12 @@ public:
 	Stack();
 	Stack(const int count);
 	~Stack();
-	void push(T item);//добавление элемента в вверх стека
+	void push(T item);//РґРѕР±Р°РІР»РµРЅРёРµ СЌР»РµРјРµРЅС‚Р° РІ РІРІРµСЂС… СЃС‚РµРєР°
 	void print();
-	T pop();//достаём элемент
-	T peak();//получаем значение верхнего элемента стека
+	T pop();//РґРѕСЃС‚Р°С‘Рј СЌР»РµРјРµРЅС‚
+	T peak();//РїРѕР»СѓС‡Р°РµРј Р·РЅР°С‡РµРЅРёРµ РІРµСЂС…РЅРµРіРѕ СЌР»РµРјРµРЅС‚Р° СЃС‚РµРєР°
 
-	bool isEmpty();//проверка на пустоту 
+	bool isEmpty();//РїСЂРѕРІРµСЂРєР° РЅР° РїСѓСЃС‚РѕС‚Сѓ 
 };
 
 template<typename T>
@@ -45,20 +45,20 @@ class ArrayList
 {
 public:
 
-	void add(T field, int index);//добавляем по индексу
-	void add(T field);//добавляем в конец
-	void deleteItem(int index);//удаляем по индексу
-	unsigned find(T index);//поиск по значение
+	void add(T field, int index);//РґРѕР±Р°РІР»СЏРµРј РїРѕ РёРЅРґРµРєСЃСѓ
+	void add(T field);//РґРѕР±Р°РІР»СЏРµРј РІ РєРѕРЅРµС†
+	void deleteItem(int index);//СѓРґР°Р»СЏРµРј РїРѕ РёРЅРґРµРєСЃСѓ
+	unsigned find(T index);//РїРѕРёСЃРє РїРѕ Р·РЅР°С‡РµРЅРёРµ
 	int size();//
 <<<<<<< Updated upstream
 =======
 	void seek();
 >>>>>>> Stashed changes
 	void print();
-	T getLast();//получаем последний элемент
+	T getLast();//РїРѕР»СѓС‡Р°РµРј РїРѕСЃР»РµРґРЅРёР№ СЌР»РµРјРµРЅС‚
 	T& operator[](int index);
 	ArrayList();
-	ArrayList(int count);//создаём массив длиной count
+	ArrayList(int count);//СЃРѕР·РґР°С‘Рј РјР°СЃСЃРёРІ РґР»РёРЅРѕР№ count
 <<<<<<< Updated upstream
 	~ArrayList();
 
@@ -69,8 +69,8 @@ public:
 >>>>>>> Stashed changes
 private:
 	T* arr = nullptr;
-	int lastItemIndex = 0;//индекс будущего последнего элемента
-	int maxSize = 0;//максимальный размер 
+	int lastItemIndex = 0;//РёРЅРґРµРєСЃ Р±СѓРґСѓС‰РµРіРѕ РїРѕСЃР»РµРґРЅРµРіРѕ СЌР»РµРјРµРЅС‚Р°
+	int maxSize = 0;//РјР°РєСЃРёРјР°Р»СЊРЅС‹Р№ СЂР°Р·РјРµСЂ 
 	void expansionArr();
 };
 <<<<<<< Updated upstream

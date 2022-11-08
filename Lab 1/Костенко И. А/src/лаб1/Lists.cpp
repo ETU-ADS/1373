@@ -1,4 +1,4 @@
-#include "Lists.h"
+ï»¿#include "Lists.h"
 #include <iostream>
 #include <cassert>
 
@@ -13,7 +13,7 @@ LinkedList<T>::LinkedList(const int count)
 {
 
 	if (count <= 0) {
-		cout << "Îøèáêà ñîçäàíèÿ ñïèñêà: count <= 0" << endl;
+		cout << "ÐžÑˆÐ¸Ð±ÐºÐ° ÑÐ¾Ð·Ð´Ð°Ð½Ð¸Ñ ÑÐ¿Ð¸ÑÐºÐ°: count <= 0" << endl;
 		return;
 	}
 	head->next = nullptr;
@@ -31,7 +31,7 @@ LinkedList<T>::LinkedList(const int count)
 	Item<T>* cur = new Item<T>();
 	cur->next = nullptr;
 	head->next = cur;
-	for (int i = 0; i < count - 2; i++)//count-2 ò.ê ìû óæå ñîçäàëè head è cur
+	for (int i = 0; i < count - 2; i++)//count-2 Ñ‚.Ðº Ð¼Ñ‹ ÑƒÐ¶Ðµ ÑÐ¾Ð·Ð´Ð°Ð»Ð¸ head Ð¸ cur
 	{
 		Item<T>* next = new Item<T>();
 		cur->next = next;
@@ -44,7 +44,7 @@ Item<T>& LinkedList<T>::operator[](int index)
 {
 	if (index >= size() || index < 0)
 	{
-		cout << "Îøèáêà âûõîäà çà ìàññèâ" << endl;
+		cout << "ÐžÑˆÐ¸Ð±ÐºÐ° Ð²Ñ‹Ñ…Ð¾Ð´Ð° Ð·Ð° Ð¼Ð°ÑÑÐ¸Ð²" << endl;
 	}
 	else
 	{
@@ -82,12 +82,12 @@ bool LinkedList<T>::deleteItem(unsigned pos)
 {
 	if (pos >= size())
 	{
-		cout << "Îøèáêà: index áîëüøå ðàçìåðà" << endl;
+		cout << "ÐžÑˆÐ¸Ð±ÐºÐ°: index Ð±Ð¾Ð»ÑŒÑˆÐµ Ñ€Ð°Ð·Ð¼ÐµÑ€Ð°" << endl;
 		return false;
 	}
 	if (pos < 0)
 	{
-		cout << "Îøèáêà: index < 0" << endl;
+		cout << "ÐžÑˆÐ¸Ð±ÐºÐ°: index < 0" << endl;
 		return false;
 	}
 	unsigned counter = 0;
@@ -139,12 +139,12 @@ bool LinkedList<T>::add(T field, unsigned index)
 {
 	if (index >= size())
 	{
-		cout << "Îøèáêà: index áîëüøå ðàçìåðà" << endl;
+		cout << "ÐžÑˆÐ¸Ð±ÐºÐ°: index Ð±Ð¾Ð»ÑŒÑˆÐµ Ñ€Ð°Ð·Ð¼ÐµÑ€Ð°" << endl;
 		return false;
 	}
 	if (index < 0)
 	{
-		cout << "Îøèáêà: index < 0" << endl;
+		cout << "ÐžÑˆÐ¸Ð±ÐºÐ°: index < 0" << endl;
 		return false;
 	}
 	unsigned counter = 0;
@@ -191,7 +191,7 @@ void LinkedList<T>::print()
 	Item* item = head;
 	if (head == nullptr)
 	{
-		cout << "Ñïèñîê ïóñò!" << endl;
+		cout << "Ð¡Ð¿Ð¸ÑÐ¾Ðº Ð¿ÑƒÑÑ‚!" << endl;
 		return;
 	}
 	while (item->next != nullptr)
@@ -205,7 +205,7 @@ template<typename T>
 Stack<T>::Stack(const int count)
 {
 	if (count <= 0) {
-		cout << "Îøèáêà ñîçäàíèÿ ñïèñêà: count <= 0" << endl;
+		cout << "ÐžÑˆÐ¸Ð±ÐºÐ° ÑÐ¾Ð·Ð´Ð°Ð½Ð¸Ñ ÑÐ¿Ð¸ÑÐºÐ°: count <= 0" << endl;
 		return;
 	}
 	head = new Item<T>();
@@ -224,7 +224,7 @@ Stack<T>::Stack(const int count)
 	Item<T>* cur = new Item<T>();
 	cur->next = nullptr;
 	head->next = cur;
-	for (int i = 0; i < count - 2; i++)//count-2 ò.ê ìû óæå ñîçäàëè head è cur
+	for (int i = 0; i < count - 2; i++)//count-2 Ñ‚.Ðº Ð¼Ñ‹ ÑƒÐ¶Ðµ ÑÐ¾Ð·Ð´Ð°Ð»Ð¸ head Ð¸ cur
 	{
 		Item<T>* next = new Item<T>();
 		cur->next = next;
@@ -289,7 +289,7 @@ void Stack<T>::print()
 {
 	if (head == nullptr)
 	{
-		cout << "Ñòåê ïóñò!" << endl;
+		cout << "Ð¡Ñ‚ÐµÐº Ð¿ÑƒÑÑ‚!" << endl;
 		return;
 	}
 	Item<T>* item = head;
@@ -373,7 +373,7 @@ inline void ArrayList<T>::seek()
 template<typename T>
 void ArrayList<T>::insertionSort(int left, int right)
 {
-	for (int i = left + 1; i <= right; i++)//+1 òê ïåðâûé ýëåìåíò çàäâèãàòü íàì íåêóäà
+	for (int i = left + 1; i <= right; i++)//+1 Ñ‚Ðº Ð¿ÐµÑ€Ð²Ñ‹Ð¹ ÑÐ»ÐµÐ¼ÐµÐ½Ñ‚ Ð·Ð°Ð´Ð²Ð¸Ð³Ð°Ñ‚ÑŒ Ð½Ð°Ð¼ Ð½ÐµÐºÑƒÐ´Ð°
 	{
 		int current = arr[i];
 		int prevIndex = i - 1;
