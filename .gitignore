@@ -1,38 +1,6 @@
 .vscode
 venv
+*.sln
 **__pycache__
 *.pdb
 *.exe
-Lab 2/Костенко И.А/src/lab2/x64/Debug/vc143.idb
-Lab 2/Костенко И.А/src/lab2/x64/Debug/Lists.obj
-Lab 2/Костенко И.А/src/lab2/x64/Debug/lab2.vcxproj.FileListAbsolute.txt
-Lab 2/Костенко И.А/src/lab2/x64/Debug/lab2.tlog/link.write.1.tlog
-Lab 2/Костенко И.А/src/lab2/x64/Debug/lab2.tlog/link.read.1.tlog
-Lab 2/Костенко И.А/src/lab2/x64/Debug/lab2.exe.recipe
-Lab 2/Костенко И.А/src/lab2/x64/Debug/lab2.ilk
-Lab 2/Костенко И.А/src/lab2/x64/Debug/lab2.log
-Lab 2/Костенко И.А/src/lab2/x64/Debug/lab2.obj
-Lab 2/Костенко И.А/src/lab2/x64/Debug/lab2.tlog/CL.command.1.tlog
-Lab 2/Костенко И.А/src/lab2/x64/Debug/lab2.tlog/CL.read.1.tlog
-Lab 2/Костенко И.А/src/lab2/x64/Debug/lab2.tlog/CL.write.1.tlog
-Lab 2/Костенко И.А/src/lab2/x64/Debug/lab2.tlog/lab2.lastbuildstate
-Lab 2/Костенко И.А/src/lab2/x64/Debug/lab2.tlog/link.command.1.tlog
-Lab 2/Костенко И.А/src/lab2/x64/Debug/lab2.Build.CppClean.log
-Lab 2/Костенко И.А/src/lab2/lab2.vcxproj.user
-Lab 2/Костенко И.А/src/lab2/lab2.vcxproj
-Lab 2/Костенко И.А/src/lab2/lab2.vcxproj.filters
-Lab 2/Костенко И.А/src/lab2.sln
-Lab 2/Костенко И.А/src/.vs/lab2/v17/ipch/AutoPCH/d3d3eb2000bcb0bb/LISTS.ipch
-Lab 2/Костенко И.А/src/.vs/lab2/v17/ipch/AutoPCH/7f6e4e84ab43d6c1/LAB2.ipch
-Lab 2/Костенко И.А/src/.vs/lab2/v17/ipch/AutoPCH/d15c0eb6bf9abafd/LISTS.ipch
-Lab 2/Костенко И.А/src/.vs/lab2/v17/ipch/AutoPCH/5b6ddb1ab98d69b5/LIST.ipch
-Lab 2/Костенко И.А/src/.vs/lab2/v17/Browse.VC.db
-Lab 2/Костенко И.А/src/.vs/lab2/v17/.suo
-Lab 2/Костенко И.А/src/.vs/lab2/FileContentIndex/read.lock
-Lab 2/Костенко И.А/src/.vs/lab2/FileContentIndex/ece29017-7307-4012-b8c3-3aca4da995c3.vsidx
-Lab 2/Костенко И.А/src/.vs/lab2/FileContentIndex/90a9b08d-23ea-4bfc-a279-0de413ed18c6.vsidx
-Lab 2/Костенко И.А/src/.vs/lab2/FileContentIndex/7eb3a051-82a6-49de-82ad-42bbf8fcefa3.vsidx
-Lab 2/Костенко И.А/src/.vs/lab2/FileContentIndex/6e758019-006b-42e0-b8cd-5234f8c3de30.vsidx
-Lab 2/README.md
-Lab 2/README.md
-Lab 2/README.md
