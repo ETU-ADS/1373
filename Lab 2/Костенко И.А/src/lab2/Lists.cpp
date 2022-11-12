@@ -1,4 +1,4 @@
-#include "Lists.h"
+ï»¿#include "Lists.h"
 #include <iostream>
 #include <cassert>
 
@@ -13,7 +13,7 @@ LinkedList<T>::LinkedList(const int count)
 {
 
 	if (count <= 0) {
-		cout << "Îøèáêà ñîçäàíèÿ ñïèñêà: count <= 0" << endl;
+		cout << "ÐžÑˆÐ¸Ð±ÐºÐ° ÑÐ¾Ð·Ð´Ð°Ð½Ð¸Ñ ÑÐ¿Ð¸ÑÐºÐ°: count <= 0" << endl;
 		return;
 	}
 	head->next = nullptr;
@@ -31,7 +31,7 @@ LinkedList<T>::LinkedList(const int count)
 	Item<T>* cur = new Item<T>();
 	cur->next = nullptr;
 	head->next = cur;
-	for (int i = 0; i < count - 2; i++)//count-2 ò.ê ìû óæå ñîçäàëè head è cur
+	for (int i = 0; i < count - 2; i++)//count-2 Ñ‚.Ðº Ð¼Ñ‹ ÑƒÐ¶Ðµ ÑÐ¾Ð·Ð´Ð°Ð»Ð¸ head Ð¸ cur
 	{
 		Item<T>* next = new Item<T>();
 		cur->next = next;
@@ -44,7 +44,7 @@ Item<T>& LinkedList<T>::operator[](int index)
 {
 	if (index >= size() || index < 0)
 	{
-		cout << "Îøèáêà âûõîäà çà ìàññèâ" << endl;
+		cout << "ÐžÑˆÐ¸Ð±ÐºÐ° Ð²Ñ‹Ñ…Ð¾Ð´Ð° Ð·Ð° Ð¼Ð°ÑÑÐ¸Ð²" << endl;
 	}
 	else
 	{
@@ -82,12 +82,12 @@ bool LinkedList<T>::deleteItem(unsigned pos)
 {
 	if (pos >= size())
 	{
-		cout << "Îøèáêà: index áîëüøå ðàçìåðà" << endl;
+		cout << "ÐžÑˆÐ¸Ð±ÐºÐ°: index Ð±Ð¾Ð»ÑŒÑˆÐµ Ñ€Ð°Ð·Ð¼ÐµÑ€Ð°" << endl;
 		return false;
 	}
 	if (pos < 0)
 	{
-		cout << "Îøèáêà: index < 0" << endl;
+		cout << "ÐžÑˆÐ¸Ð±ÐºÐ°: index < 0" << endl;
 		return false;
 	}
 	unsigned counter = 0;
@@ -139,12 +139,12 @@ bool LinkedList<T>::add(T field, unsigned index)
 {
 	if (index >= size())
 	{
-		cout << "Îøèáêà: index áîëüøå ðàçìåðà" << endl;
+		cout << "ÐžÑˆÐ¸Ð±ÐºÐ°: index Ð±Ð¾Ð»ÑŒÑˆÐµ Ñ€Ð°Ð·Ð¼ÐµÑ€Ð°" << endl;
 		return false;
 	}
 	if (index < 0)
 	{
-		cout << "Îøèáêà: index < 0" << endl;
+		cout << "ÐžÑˆÐ¸Ð±ÐºÐ°: index < 0" << endl;
 		return false;
 	}
 	unsigned counter = 0;
@@ -191,7 +191,7 @@ void LinkedList<T>::print()
 	Item* item = head;
 	if (head == nullptr)
 	{
-		cout << "Ñïèñîê ïóñò!" << endl;
+		cout << "Ð¡Ð¿Ð¸ÑÐ¾Ðº Ð¿ÑƒÑÑ‚!" << endl;
 		return;
 	}
 	while (item->next != nullptr)
@@ -205,7 +205,7 @@ template<typename T>
 Stack<T>::Stack(const int count)
 {
 	if (count <= 0) {
-		cout << "Îøèáêà ñîçäàíèÿ ñïèñêà: count <= 0" << endl;
+		cout << "ÐžÑˆÐ¸Ð±ÐºÐ° ÑÐ¾Ð·Ð´Ð°Ð½Ð¸Ñ ÑÐ¿Ð¸ÑÐºÐ°: count <= 0" << endl;
 		return;
 	}
 	head = new Item<T>();
@@ -224,7 +224,7 @@ Stack<T>::Stack(const int count)
 	Item<T>* cur = new Item<T>();
 	cur->next = nullptr;
 	head->next = cur;
-	for (int i = 0; i < count - 2; i++)//count-2 ò.ê ìû óæå ñîçäàëè head è cur
+	for (int i = 0; i < count - 2; i++)//count-2 Ñ‚.Ðº Ð¼Ñ‹ ÑƒÐ¶Ðµ ÑÐ¾Ð·Ð´Ð°Ð»Ð¸ head Ð¸ cur
 	{
 		Item<T>* next = new Item<T>();
 		cur->next = next;
@@ -291,7 +291,7 @@ void Stack<T>::print()
 {
 	if (head == nullptr)
 	{
-		cout << "Ñòåê ïóñò!" << endl;
+		cout << "Ð¡Ñ‚ÐµÐº Ð¿ÑƒÑÑ‚!" << endl;
 		return;
 	}
 	Item<T>* item = head;
@@ -517,7 +517,7 @@ void ArrayList<T>::timsort()
 	int endReverse;
 	for (int i = 0; i <= size()-1; i++)
 	{
-		if ((length < minRan || arr[i] < arr[i+1]) && i+1 != size() - 1)
+		if ((length < minRan || (arr[i] < arr[i+1] || isReverse == false) || (arr[i] >= arr[i + 1] || isReverse == true)) && i + 1 != size() - 1)
 		{
 			if (arr[i] > arr[i + 1] && isReverse == false) {
 				startReverse = i + 1;
@@ -537,21 +537,50 @@ void ArrayList<T>::timsort()
 		}
 		else
 		{
+
 			isSorted = true;
 			Interval sf = {i-length,i+1};
 			insertionSort(sf.start, sf.finish);
 			stack.push(sf);
 			elementsInStack++;
-			if (elementsInStack >= 2) {
-				Interval second = stack.pop();
-				Interval first = stack.pop();
-				merge(first.start, first.finish, second.finish + 1);
-				Interval currentInterval = { first.start, second.finish + 1};
-				stack.push(currentInterval);
-				elementsInStack--;
+			if (elementsInStack >= 3)
+			{
+				Interval x = stack.pop(), y = stack.pop(), z = stack.pop();
+				if (((z.finish-z.start) > (y.finish-y.start) + (x.finish - x.start)) && (y.finish - y.start) > (x.finish - x.start))
+				{
+					stack.push(z);
+					stack.push(y);
+					stack.push(x);
+				}
+				else
+				{
+					if ((z.finish - z.start) > (x.finish - x.start))
+					{
+						merge(z.start, z.finish, y.finish + 1);
+						stack.push({ z.start, y.finish + 1 });
+						elementsInStack--;
+					}
+					else
+					{
+						merge(y.start, y.finish, x.finish + 1);
+						stack.push({ y.start, x.finish + 1 });
+						elementsInStack--;
+					}
+				}
 			}
 			length = 0;
 		}
+	}
+	Interval prev;
+	if (stack.isEmpty() == false)
+	{
+		prev = stack.pop();
+	}
+	while (!stack.isEmpty())
+	{
+		Interval cur = stack.pop();
+		merge(cur.start, cur.finish, prev.finish + 1);
+		prev = {cur.start, prev.finish + 1};
 	}
 	print();
 }
