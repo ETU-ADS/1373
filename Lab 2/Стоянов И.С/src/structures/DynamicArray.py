@@ -30,10 +30,10 @@ class DynamicArray:
             raise IndexError('Index is out of range!')
 
         if self._lenght == self._capacity:
-            self._resize(int(1.6*self._capacity))
+            self._resize(int(1.6 * self._capacity))
 
         for i in range(self._lenght - 1, index - 1, -1):
-            self._array[i+1] = self._array[i]
+            self._array[i + 1] = self._array[i]
 
         self._array[index] = element
         self._lenght += 1
@@ -53,8 +53,8 @@ class DynamicArray:
             return element
 
         for i in range(index, self._lenght - 1):
-            self._array[i] = self._array[i+1]
-        self._array[self._lenght-1] = None
+            self._array[i] = self._array[i + 1]
+        self._array[self._lenght - 1] = None
         self._lenght -= 1
         return element
 
@@ -84,3 +84,14 @@ class DynamicArray:
         a = self._array[i]
         self._array[i] = self._array[j]
         self._array[j] = a
+    def is_esc(self, start: int = 0, end: int = None) -> bool:
+        if not end:
+            end = self._lenght
+
+        prev = None
+        for i in range(start, end + 1):
+            if prev:
+                if self[i] < prev:
+                    return False
+            prev = self[i]
+        return True
