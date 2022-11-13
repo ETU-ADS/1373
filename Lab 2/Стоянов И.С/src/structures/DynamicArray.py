@@ -84,7 +84,6 @@ class DynamicArray:
         a = self._array[i]
         self._array[i] = self._array[j]
         self._array[j] = a
-
     def is_esc(self, start: int = 0, end: int = None) -> bool:
         if not end:
             end = self._lenght

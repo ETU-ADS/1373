@@ -13,6 +13,7 @@ class Run:
 def timsort(arr: DynamicArray):
     n = len(arr)
 
+
     # Шаг 0. Вычисление minrun
     minrun = get_minrun(n)
 
