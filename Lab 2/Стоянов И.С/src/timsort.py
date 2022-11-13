@@ -65,6 +65,7 @@ def timsort(arr: DynamicArray):
                 i += 1
                 continue
             else:
+                reverse(arr, start, start + size)
                 if size < minrun:
                     delta = minrun - size
                     if i + delta >= n:
@@ -72,8 +73,6 @@ def timsort(arr: DynamicArray):
 
                     size += delta
                     i += delta
-
-                reverse(arr, start, start + size)
                 insertion_sort(arr, start, start + size)
 
                 runs.append(Run(start=start, end=i, size=size + 1))
