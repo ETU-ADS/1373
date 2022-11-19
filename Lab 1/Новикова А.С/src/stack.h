@@ -1,13 +1,12 @@
 #pragma once
 #include <iostream>
-#include <string>
+#include "dynArray.h"
 
 class Stack
 {
 private:
-	int size;
+	DynArray data;
 	int top;
-	std::string* data;
 
 public:
 
@@ -23,4 +22,5 @@ public:
 	bool isFull();
 
 	bool isEmpty();
+
 };

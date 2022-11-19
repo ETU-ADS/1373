@@ -36,7 +36,6 @@ std::string sort(std::string data)
 		}
 		else if (buffer == "+" || buffer == "-" || buffer == "*" || buffer == "/" || buffer == "^" || buffer == "cos" || buffer == "sin" || buffer == "(" || buffer == ")")
 		{
-			
 			if (opStack.isEmpty() || opPriority(buffer) > opPriority(opStack.peak()) || buffer == "(")
 			{
 				opStack.push(buffer);

@@ -3,13 +3,13 @@
 DynArray::DynArray()
 {
 	size = 1;
-	data = new double[size];
+	data = new std::string[size];
 }
 
 DynArray::DynArray(int elemAmount)
 {
 	size = elemAmount;
-	data = new double[size];
+	data = new std::string[size];
 }
 
 DynArray::~DynArray()
@@ -17,7 +17,7 @@ DynArray::~DynArray()
 	delete[] data;
 }
 
-int DynArray::find(double value)
+int DynArray::find(std::string value)
 {
 	for (int i = 0; i < size; i++) {
 		if (data[i] == value)
@@ -28,7 +28,7 @@ int DynArray::find(double value)
 	return -1; 
 }
 
-void DynArray::add(int index, double value)
+void DynArray::add(int index, std::string value)
 {
 	if (index >= 0)
 	{
@@ -67,7 +67,24 @@ void DynArray::remove(int index)
 	}
 }
 
-double& DynArray::operator[](const int index)
+int DynArray::getSize()
+{
+	return size;
+}
+
+void DynArray::pushBack(std::string value)
+{
+	std::string* temp = new std::string[size + 1];
+	for (int i = 0; i < size; i++)
+		temp[i] = data[i];
+
+	temp[size++] = value;
+
+	delete[] *&data;
+	data = temp;
+}
+
+std::string& DynArray::operator[](const int index)
 {
 	return data[index];
 }

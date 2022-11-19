@@ -2,13 +2,11 @@
 
 Stack::Stack(int elemAmount)
 {
-	size = elemAmount;
-	data = new std::string[size];
 	top = -1;
 }
 Stack::~Stack()
 {
-	delete[] data;
+	top = 0;
 }
 
 std::string Stack::peak()
@@ -33,7 +31,10 @@ void Stack::pop()
 void Stack::push(std::string value)
 {
 	if (isFull())
-		std::cout << "The stack is full! Unable to push!";
+	{
+		data.pushBack(value);
+		top++;
+	}
 
 	else
 		data[++top] = value;
@@ -46,5 +47,5 @@ bool Stack::isEmpty()
 
 bool Stack::isFull()
 {
-	return (top == size - 1);
+	return (top == data.getSize() - 1);
 }
