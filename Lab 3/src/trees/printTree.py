@@ -11,10 +11,10 @@ def tree_to_image(tree: BinaryTree, filename: str):
 
     def add_graph_node(n: Node | AVLNode):
         if n.left:
-            add_graph_edge(n.data, n.left.data)
+            add_graph_edge(n, n.left)
             add_graph_node(n.left)
         if n.right:
-            add_graph_edge(n.data, n.right.data)
+            add_graph_edge(n, n.right)
             add_graph_node(n.right)
 
     def add_graph_edge(f_item, s_item):

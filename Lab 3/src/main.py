@@ -6,16 +6,21 @@ from trees.printTree import tree_to_image
 
 def main():
     # Демонстрация работы алгоритма для парсинга скобочной записи дерева.
-    data = '(10 (9) (20 (14) (25)))'
+    with open('data.txt') as f:
+        data = f.read()
     root = parse_string(data)
     binary_tree = BinaryTree(root=root)
     # Сохраняем изображение дерева > output/parse_string/{data}.png
     tree_to_image(binary_tree, f'parse_string/{data}.png')
 
-    # АВЛ дерево
+    # АВЛ деревоr
     avl_tree = AVLTree()
     # Добавление эл-ов
-    data = [50, 25, 10, 5, 7, 3, 30, 20, 8, 15]
+    data1 = [50, 25, 10, 5, 7, 3, 30, 20, 8, 15]
+    data2 = binary_tree.bfs()
+
+    data = set(data1 + data2)
+
     n = 1
     for d in data:
         avl_tree.add(d)
@@ -30,7 +35,8 @@ def main():
     print(f'Обход в глубину (postorder): {avl_tree.postorder()}')
 
     # Удаление эл-ов
-    data = [8, 25, 30]
+    data = [13, 1, 7]
+    n = 1
     for d in data:
         avl_tree.remove(d)
         # Сохраняем изображения дерева после каждого удаления > output/avl_remove/remove_{d}.png

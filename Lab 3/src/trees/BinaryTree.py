@@ -1,12 +1,18 @@
+last_id = 0
+
+
 class Node:
     def __init__(self, data: any, left=None, right=None):
-        self.data = data
+        global last_id
+        self.id = last_id
+        last_id += 1
 
+        self.data = data
         self.left = left
         self.right = right
 
     def __str__(self) -> str:
-        return str(self.data)
+        return str(self.data) + f'(id{self.id})'
 
 
 class BinaryTree:
@@ -21,7 +27,7 @@ class BinaryTree:
         result = []
 
         def proccess(n: Node):
-            result.append(n)
+            result.append(n.data)
 
         queue = [self.root]
         while len(queue) > 0:

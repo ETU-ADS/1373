@@ -3,6 +3,9 @@ from trees.BinaryTree import Node
 
 def parse_string(string: str) -> Node | None:
 
+    if string.count('(') != string.count(')'):
+        raise Exception("Не совпадает кол-во '(' и ')'")
+
     if string.count('(') == 1 and string.count(')') == 1:
         head = string.replace('(', '').replace(')', '')
         if head == '':
@@ -33,5 +36,8 @@ def parse_string(string: str) -> Node | None:
                 close_brackets = 0
             else:
                 right = formatted_string[start:i+1]
+                break
+    if i != len(formatted_string) - 1:
+        raise Exception('У Node не может быть больше двух потомков!')
 
     return Node(data=int(head), left=parse_string(left), right=parse_string(right))

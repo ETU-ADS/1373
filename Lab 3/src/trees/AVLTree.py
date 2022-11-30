@@ -12,19 +12,26 @@ class BoolObject(object):
         return self.status
 
 
+last_id = 0
+
+
 class AVLNode(object):
     LEFT_HIGHER = -1
     EQUAL_HEIGHT = 0
     RIGHT_HIGHER = 1
 
     def __init__(self, data, left=None, right=None, parent=None, bf=0):
+        global last_id
+        self.id = last_id
+        last_id += 1
+
         self.data = data
         self.left, self.right = left, right
         self.parent = parent
         self.bf = bf
 
     def __str__(self):
-        return f'{self.data}'
+        return f'{self.data} (id{self.id})'
 
     def __repr__(self):
         return self.__str__()

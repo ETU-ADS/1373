@@ -12,6 +12,8 @@
 2. Установите необходимые зависимости с помощью `pip install -r requirements.txt`
 3. Запустите `python main.py`
 
+Все сгенерированные изображения хранятся в дериктории `output/`
+
 ## Usage
 
 ```python
@@ -23,7 +25,8 @@ from trees.printTree import tree_to_image
 
 def main():
     # Демонстрация работы алгоритма для парсинга скобочной записи дерева.
-    data = '(10 (9) (20 (14) (25)))'
+    with open('data.txt') as f:
+        data = f.read()
     root = parse_string(data)
     binary_tree = BinaryTree(root=root)
     # Сохраняем изображение дерева > output/parse_string/{data}.png
