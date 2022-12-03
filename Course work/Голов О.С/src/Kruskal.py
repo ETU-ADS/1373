@@ -12,9 +12,11 @@ def adapt(txt: str) -> list:  # create list of arcs
             g_vars[i] = Edge(g_vars[i], i)
         for i in range(len(g_vars)):
             arc = name.readline().split()  # ranges by other Edges
-            for j in range(len(arc)):
+            for j in range(i + 1, len(arc)):  # with i+1 we process only unique arcs, without Loops
                 if int(arc[j]) > 0:
                     arcs.append([g_vars[i], g_vars[j], int(arc[j])])
+                elif int(arc[j]) < 0:
+                    arcs.append([g_vars[j], g_vars[i], abs(int(arc[j]))])
         return arcs
 
 
@@ -47,3 +49,4 @@ def kruskal(arcs: list):
 if __name__ == '__main__':
     a = adapt('graph.txt')
     print(kruskal(a))
+    input('Press Enter to close!')
