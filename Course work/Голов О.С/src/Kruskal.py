@@ -13,19 +13,16 @@ def adapt(txt: str) -> list:  # create list of arcs
         for i in range(len(g_vars)):
             arc = name.readline().split()  # ranges by other Edges
             for j in range(i + 1, len(arc)):  # with i+1 we process only unique arcs, without Loops
-                if int(arc[j]) > 0:
+                if arc[j] != '0':
                     arcs.append([g_vars[i], g_vars[j], int(arc[j])])
-                elif int(arc[j]) < 0:
-                    arcs.append([g_vars[j], g_vars[i], abs(int(arc[j]))])
         return arcs
 
 
-def sort_g(arcs: list) -> list:  # sort each arc by its weight
+def sort_g(arcs: list):  # sort each arc by its weight
     for j in range(len(arcs) - 1):
         for i in range(len(arcs) - 1):
             if arcs[i][2] > arcs[i + 1][2]:
                 arcs[i], arcs[i + 1] = arcs[i + 1], arcs[i]
-    return arcs
 
 
 def kruskal(arcs: list):
