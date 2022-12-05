@@ -32,8 +32,10 @@ public:
 public:
 	bool parse(char* str, int strLength);
 	void print();
+	void forward();
 	Node<T>* getRoot();
 private:
+	void forward(Node<T>* main);
 	void clean(Node<T>* main);
 	void print(Node<T>* main, int level);
 private:
@@ -47,27 +49,31 @@ public:
 	RBTree();
 	~RBTree();
 public:
-	void deleteItem(T value);//удаление
-	void rightRotate(Node<T>* node);//правый поворот
-	void leftRotate(Node<T>* node);//левый поворот
+	void deleteItem(T value);
+	void rightRotate(Node<T>* node);
+	void leftRotate(Node<T>* node);
 	void transformation(Node<T>* btRoot);//корни rb и bt
-	void reverse();//обратный обход
-	void forward();//прямой обход
-	void central();//центрированный обход
+	void reverse();
+	void forward();
+	void central();
+	void print();
 	void inWidth();//обход в ширину.
-	Node<T>* insert(T value);//вставка
-	Node<T>* find(T value);//поиск
-	Node<T>* getRoot();//геттер для корня
+	Node<T>* insert(T value);
+	Node<T>* find(T value);
+	Node<T>* getRoot();
 private:
+	void print(Node<T>* main, int level);
 	void clearVisits();
 	void clearVisits(Node<T>* main);
 	void reverse(Node<T>* main);
 	void central(Node<T>* main);
 	void forward(Node<T>* main);
 	void insertElemFromBT(Node<T>* main);
-	void balance(Node<T>* inserted);//балансировка удаления
-	void balanceZeroBlack(Node<T>* node);//балансировка удаления при чёрной вершине с 0 потомками
-	void clean(Node<T>* main);//очистка дерева
+	void balance(Node<T>* inserted);
+	void balanceZeroBlack(Node<T>* node);
+	void clean(Node<T>* main);
+	void forwardRedCheck();
+	Node<T>* forwardRedCheck(Node<T>* main);
 	Node<T>* find(T value, Node<T>* main);
 	Node<T>* insertVal(T val, Node<T>* main, Node<T>* parent, bool isLeftMode);
 private:

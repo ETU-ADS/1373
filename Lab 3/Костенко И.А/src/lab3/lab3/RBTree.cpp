@@ -12,28 +12,32 @@ Node<T>* RBTree<T>::insert(T value)
 		return root;
 	}
 	Node<T>* cur = insertVal(value, root, root->parent, true);
-	balance(cur);
+	forwardRedCheck();
 	return cur;
 }
 
 template<typename T>
 Node<T>* RBTree<T>::find(T value)
 {
+	clearVisits();
 	return find(value, root);
 }
 
 template<typename T>
 void RBTree<T>::deleteItem(T value)
 {
+	root->isRed = false;
 	Node<T>* node = find(value);
 	if (node->left == nullptr && node->right == nullptr)//1. Нет потомков
 	{
-		if (node->isRed == true)
+		if (node->isRed == true)///
 		{
-			if (node->parent->left == node)
-				node->parent->left == nullptr;
-			else
-				node->parent->right == nullptr;
+			if (node->parent->left == node) {
+				node->parent->left = nullptr;
+			}
+			else {
+				node->parent->right = nullptr;
+			}
 			delete node;
 			return;
 		}
@@ -43,7 +47,7 @@ void RBTree<T>::deleteItem(T value)
 			return;
 		}
 	}
-	if ((node->left != nullptr && node->right == nullptr) || (node->left == nullptr && node->right != nullptr))//2. 1 Потомок
+	if ((node->left != nullptr && node->right == nullptr) || (node->left == nullptr && node->right != nullptr))//2. 1 Потомок///
 	{
 		Node<T>* child = (node->left != nullptr) ? node->left : node->right;
 		if (node->parent->left == node)
@@ -54,8 +58,9 @@ void RBTree<T>::deleteItem(T value)
 		if (child->parent->isRed == true)
 			child->isRed = false;
 		delete node;
+		return;
 	}
-	if (node->left != nullptr && node->right != nullptr)
+	if (node->left != nullptr && node->right != nullptr)//
 	{
 		Node<T>* current;
 		current = node->right;
@@ -63,16 +68,11 @@ void RBTree<T>::deleteItem(T value)
 		{
 			current = current->left;
 		}
-		node->data = current->data;
-		delete current;
-		if (node->isRed == true)
-			return;
-		else
-		{
-			//balance
-		}
+		T buffer = current->data;
+		deleteItem(current->data);
+		node->data = buffer;
+		return;
 	}
-
 }
 
 template<typename T>
@@ -105,6 +105,10 @@ void RBTree<T>::rightRotate(Node<T>* node)
 	node->right->parent = node;
 	node->parent = fatherParent;
 	node->right->left = nodeChild;
+	if (nodeChild != nullptr)
+	{
+		nodeChild->parent = node->right;
+	}
 }
 
 template<typename T>
@@ -125,12 +129,29 @@ void RBTree<T>::leftRotate(Node<T>* node)
 	node->left->parent = node;
 	node->parent = fatherParent;
 	node->left->right = nodeChild;//
+	if (nodeChild != nullptr)
+	{
+		nodeChild->parent = node->left;
+	}
 }
 
 template<typename T>
 Node<T>* RBTree<T>::getRoot()
 {
 	return root;
+}
+
+template<typename T>
+void RBTree<T>::print(Node<T>* main, int level)
+{
+	if (main != nullptr && main->isEmpty == false)
+	{
+		print(main->right, level + 1);
+		for (int i = 0; i < level; i++)
+			cout << "   ";
+		cout << main->data <<" "<<main->isRed<< endl; 
+		print(main->left, level + 1);
+	}
 }
 
 template<typename T>
@@ -169,6 +190,12 @@ void RBTree<T>::central()
 {
 	clearVisits();
 	central(root);
+}
+
+template<typename T>
+void RBTree<T>::print()
+{
+	print(root, 0);
 }
 
 template<typename T>
@@ -221,7 +248,7 @@ void RBTree<T>::reverse(Node<T>* main)
 		else
 		{
 			main->isVisited = true;
-			cout << main->data << "  ";
+			cout << main->data << " ";
 			reverse(main->parent);
 		}
 	}
@@ -236,7 +263,7 @@ void RBTree<T>::central(Node<T>* main)
 	if (main->isVisited == true && main->isPrinted == false)
 	{
 		main->isPrinted = true;
-		cout << main->data <<" ";
+		cout << main->data << " ";
 	}
 	main->isVisited = true;
 	if (main->left != nullptr && main->left->isEmpty == false && main->left->isVisited == false)
@@ -300,12 +327,16 @@ Node<T>* RBTree<T>::insertVal(T val, Node<T>* main, Node<T>* parent, bool isLeft
 		if (isLeftMode == true)
 		{
 			main = new Node<T>(val, parent);
+			main->left = nullptr;
+			main->right = nullptr;
 			parent->left = main;
 			return main;
 		}
 		else
 		{
 			main = new Node<T>(val, parent);
+			main->left = nullptr;
+			main->right = nullptr;
 			parent->right = main;
 			return main;
 		}
@@ -392,77 +423,120 @@ void RBTree<T>::balance(Node<T>* inserted)
 template<typename T>
 void RBTree<T>::balanceZeroBlack(Node<T>* node)
 {
+
 	Node<T>* brother = (node->parent->left != node) ? node->parent->left : node->parent->right;
-	if (brother->isRed == false)
+	if (brother == nullptr)
 	{
-		if (brother->parent->right == brother)
+		return;
+	}
+	bool isBrotherLeft = (node->parent->left != node) ? true : false;
+	if (!isBrotherLeft)
+	{
+		if (brother->isRed == false)
 		{
-			if (brother == brother->parent->right)
+			if ((brother->left == nullptr || brother->left->isRed == false) && (brother->right == nullptr || brother->right->isRed == false))
 			{
-				brother->isRed = brother->parent->isRed;
-				brother->parent->isRed = false;
-				brother->right->isRed = false;
-				leftRotate(brother);
-				return;
+				if (brother->parent->isRed == false)
+				{
+					brother->parent->isRed = false;
+					brother->isRed = true;
+					balanceZeroBlack(brother->parent);
+					return;
+				}
+				if (brother->parent->isRed == true)
+				{
+					brother->parent->isRed = false;
+						brother->isRed = true;
+						return;
+				}
 			}
-			if (brother->left->isRed == true && brother->right->isRed == false)
+			if (brother->right != nullptr)
 			{
-				bool parentColor = brother->isRed;
-				brother->isRed = brother->left->isRed;
-				brother->left->isRed = parentColor;
+				if (brother->right->isRed == true)
+				{
+					brother->right->isRed = false;
+					bool color = brother->parent->isRed;
+					brother->parent->isRed = brother->isRed;
+					brother->isRed = color;
+					leftRotate(brother);
+
+				}
+			}
+			if (brother->left != nullptr && brother->left->isRed == true && (brother->right == nullptr || brother->right->isRed == false))
+			{
 				rightRotate(brother->left);
-				Node<T>* copy = brother->parent;
-				copy->isRed = copy->parent->isRed;
-				copy->parent->isRed = false;
-				copy->right->isRed = false;
-				leftRotate(copy);
-				return;
-			}
-			if (brother->left->isRed == false && brother->right->isRed == false)
-			{
-				brother->isRed = true;
-				return;
+				brother->right->isRed = false;
+				bool color = brother->parent->isRed;
+				brother->parent->isRed = brother->isRed;
+				brother->isRed = color;
+				leftRotate(brother);
 			}
 		}
 		else
 		{
-			if (brother == brother->parent->left)
+			if ((brother->left == nullptr || brother->left->isRed == false) && (brother->right == nullptr || brother->right->isRed == false))
 			{
-				brother->isRed = brother->parent->isRed;
-				brother->parent->isRed = false;
+				bool color = brother->parent->isRed;
+				brother->parent->isRed = brother->isRed;
+				brother->isRed = color;
+				leftRotate(brother);
+			}
+		}
+	}
+	else
+	{
+		if (brother->isRed == false)
+		{
+			if ((brother->right == nullptr || brother->right->isRed == false) && (brother->left == nullptr || brother->left->isRed == false))
+			{
+				if (brother->parent->isRed == false)
+				{
+					brother->parent->isRed = false;
+					brother->isRed = true;
+					balanceZeroBlack(brother->parent);
+					return;
+				}
+				if (brother->parent->isRed == true)
+				{
+					brother->parent->isRed = false;
+						brother->isRed = true;
+						return;
+				}
+			}
+			if (brother->left != nullptr)
+			{
+				if (brother->left->isRed == true)
+				{
+					brother->left->isRed = false;
+					bool color = brother->parent->isRed;
+					brother->parent->isRed = brother->isRed;
+					brother->isRed = color;
+					rightRotate(brother);
+
+				}
+			}
+			if (brother->right != nullptr && brother->right->isRed == true && (brother->left == nullptr || brother->left->isRed == false))
+			{
+				leftRotate(brother->right);
 				brother->left->isRed = false;
+				bool color = brother->parent->isRed;
+				brother->parent->isRed = brother->isRed;
+				brother->isRed = color;
 				rightRotate(brother);
-				return;
 			}
-			if (brother->right->isRed == true && brother->left->isRed == false)
+		}
+		else
+		{
+			if ((brother->right == nullptr || brother->right->isRed == false) && (brother->left == nullptr || brother->left->isRed == false))
 			{
-				bool parentColor = brother->isRed;
-				brother->isRed = brother->right->isRed;
-				brother->right->isRed = parentColor;
-				rightRotate(brother->right);
-				Node<T>* copy = brother->parent;
-				copy->isRed = copy->parent->isRed;
-				copy->parent->isRed = false;
-				copy->left->isRed = false;
-				leftRotate(copy);
-				return;
-			}
-			if (brother->right->isRed == false && brother->left->isRed == false)
-			{
-				brother->isRed = true;
-				return;
+				bool color = brother->parent->isRed;
+				brother->parent->isRed = brother->isRed;
+				brother->isRed = color;
+				rightRotate(brother);
 			}
 		}
 
 	}
-	else
-	{
-		brother->parent->isRed = true;
-		brother->isRed = false;
-		leftRotate(brother);
-		return;
-	}
-
 }
 
 template<typename T>
@@ -485,5 +559,33 @@ void RBTree<T>::clean(Node<T>* main)
 			delete main;
 			clean(parent);
 		}
+	}
+}
+
+template<typename T>
+void RBTree<T>::forwardRedCheck()
+{
+	clearVisits();
+	forwardRedCheck(root);
+}
+
+template<typename T>
+Node<T>* RBTree<T>::forwardRedCheck(Node<T>* main)
+{
+	if (main == nullptr)
+		return nullptr;
+	if (main->isRed == true && main->parent->isRed == true)
+	{
+		balance(main);
+	}
+	main->isVisited = true;
+	if (main->left != nullptr && main->left->isEmpty == false && main->left->isVisited == false)
+		forwardRedCheck(main->left);
+	else
+	{
+		if (main->right != nullptr && main->right->isEmpty == false && main->right->isVisited == false)
+			forwardRedCheck(main->right);
+		else
+			forwardRedCheck(main->parent);
 	}
 }

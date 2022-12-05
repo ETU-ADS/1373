@@ -13,7 +13,7 @@ bool BinaryTree<T>::parse(char* str, int strLength)
 	int leftBrackets = 0, rightBrackets = 0;
 	for (int i = 0; i < strLength - 1; i++)
 	{
-		if (str[i] == '(' && str[i-1] == '(')
+		if (str[i] == '(' && str[i - 1] == '(')
 		{
 			cout << "Ошибка! Неверная запись скобчатых структур:у пустого узла потомков быть не может";
 			return false;
@@ -56,7 +56,7 @@ bool BinaryTree<T>::parse(char* str, int strLength)
 					val[i] = '\0';
 				}
 				root->left = nullptr;
-				root->left = nullptr;
+				root->right = nullptr;
 				root->parent = nullptr;
 				item = root;
 				continue;
@@ -92,12 +92,20 @@ bool BinaryTree<T>::parse(char* str, int strLength)
 			}
 			else
 			{
-				item->right = new Node<T>();
-				item = item->right;
-				item->data = atoi(val);
-				item->left = nullptr;
-				item->right = nullptr;
-				item->parent = buffer;
+				if (item->right == nullptr)
+				{
+					item->right = new Node<T>();
+					item = item->right;
+					item->data = atoi(val);
+					item->left = nullptr;
+					item->right = nullptr;
+					item->parent = buffer;
+				}
+				else
+				{
+					cout << "Неправильная запись скобчатых структур: это не бинарное дерево" << endl;
+					return false;
+				}
 			}
 			for (int i = 0; i < 12; i++)
 			{
@@ -112,6 +120,12 @@ template<typename T>
 void BinaryTree<T>::print()
 {
 	print(root, 0);
+}
+
+template<typename T>
+void BinaryTree<T>::forward()
+{
+	forward(root);
 }
 
 template<typename T>
@@ -130,6 +144,29 @@ template<typename T>
 Node<T>* BinaryTree<T>::getRoot()
 {
 	return root;
+}
+
+
+
+template<typename T>
+void BinaryTree<T>::forward(Node<T>* main)
+{
+	if (main == nullptr)
+		return;
+	if (main->isVisited == false)
+	{
+		cout << main->data << " ";
+	}
+	main->isVisited = true;
+	if (main->left != nullptr && main->left->isEmpty == false && main->left->isVisited == false)
+		forward(main->left);
+	else
+	{
+		if (main->right != nullptr && main->right->isEmpty == false && main->right->isVisited == false)
+			forward(main->right);
+		else
+			forward(main->parent);
+	}
 }
 
 template<typename T>

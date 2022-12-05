@@ -45,7 +45,22 @@ int main()
     cout << "Обратный обход в глубину: ";
     rb.reverse();
     cout << endl;
+    rb.print();
+    cout << "\n\n\n";
 
+    for (int i = 16; i < 31; i++)
+        rb.insert(i);
+    rb.print();
+    cout << "\n\n\n";
+    rb.deleteItem(2);
+    rb.deleteItem(6);
+
+    rb.deleteItem(4);
+
+    rb.deleteItem(3);
+    rb.deleteItem(2);
+    rb.deleteItem(19);
+    rb.print();
     file.close();
     return 0;
 }

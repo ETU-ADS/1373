@@ -386,7 +386,7 @@ void ArrayList<T>::insertionSort(int left, int right)
 template<typename T>
 void ArrayList<T>::merge(int leftBarrier, int rightBarrier, int secondEndIndex)
 {
-	ArrayList<T> buffer = ArrayList<T>(secondEndIndex-leftBarrier);
+	ArrayList<T> buffer = ArrayList<T>(secondEndIndex - leftBarrier);
 	int bufferSize = 0;
 	int fIndex = leftBarrier, sIndex = rightBarrier, rIndex = 0;
 	while (fIndex < rightBarrier || sIndex < secondEndIndex)
@@ -434,7 +434,7 @@ template<typename T>
 void ArrayList<T>::timsort()
 {
 	Stack<Interval> stack = Stack<Interval>();
-	
+
 	int elementsInStack = 0;
 	int minRan = calculateMinRun(size());
 	int length = 0;
@@ -442,18 +442,18 @@ void ArrayList<T>::timsort()
 	bool isReverse = false;
 	int startReverse;
 	int endReverse;
-	for (int i = 0; i <= size()-1; i++)
+	for (int i = 0; i <= size() - 1; i++)
 	{
-		if ((length < minRan || arr[i] < arr[i+1]) && i+1 != size() - 1)
+		if ((length < minRan || arr[i] < arr[i + 1]) && i + 1 != size() - 1)
 		{
 			if (arr[i] > arr[i + 1] && isReverse == false) {
 				startReverse = i + 1;
 				isReverse = true;
 			}
-			if (arr[i] < arr[i+1]  && isReverse == true) {
+			if (arr[i] < arr[i + 1] && isReverse == true) {
 				isReverse = false;
 				endReverse = i;
-				for (int i = 0; i < endReverse-startReverse; i++)
+				for (int i = 0; i < endReverse - startReverse; i++)
 				{
 					T helper = arr[startReverse + i];
 					arr[startReverse + i] = arr[endReverse - i];
@@ -465,7 +465,7 @@ void ArrayList<T>::timsort()
 		else
 		{
 			isSorted = true;
-			Interval sf = {i-length,i+1};
+			Interval sf = { i - length,i + 1 };
 			insertionSort(sf.start, sf.finish);
 			stack.push(sf);
 			elementsInStack++;
