@@ -118,7 +118,7 @@ class Vector:
         else:
             tmp = self.vector
             self.maxsize = int((self.maxsize + 1) * 1.5)
-            self.vector = [0 for _ in range(self.maxsize)]
+            self.vector = [None for _ in range(self.maxsize)]
             for i in range(len(tmp)):
                 self.vector[i] = tmp[i]
 
@@ -131,3 +131,11 @@ class Vector:
 
     def __len__(self):
         return self.maxsize
+
+    def shrink(self):
+        for i in range(self.maxsize):
+            if self.vector[i] is None:
+                self.maxsize -= 1
+
+    def switch(self, i, oi):
+        self.vector[i], self.vector[oi] = self.vector[oi], self.vector[i]

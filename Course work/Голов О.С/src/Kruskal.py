@@ -1,31 +1,37 @@
+from Structures import Vector
+
+
 class Edge:
     def __init__(self, name, dye):
         self.name = name
         self.dye = dye
 
 
-def adapt(txt: str) -> list:  # create list of arcs
+def adapt(txt: str) -> Vector:  # create list of arcs
     with open(txt, mode='r') as name:
-        arcs = []
+        arcs = Vector()
         g_vars = name.readline().split()  # A B C
         for i in range(len(g_vars)):
             g_vars[i] = Edge(g_vars[i], i)
+        pos = 0
         for i in range(len(g_vars)):
             arc = name.readline().split()  # ranges by other Edges
             for j in range(i + 1, len(arc)):  # with i+1 we process only unique arcs, without Loops
                 if arc[j] != '0':
-                    arcs.append([g_vars[i], g_vars[j], int(arc[j])])
+                    arcs.add(pos, [g_vars[i], g_vars[j], int(arc[j])])
+                    pos += 1
         return arcs
 
 
-def sort_g(arcs: list):  # sort each arc by its weight
+def sort_g(arcs: Vector):  # sort each arc by its weight
     for j in range(len(arcs) - 1):
         for i in range(len(arcs) - 1):
             if arcs[i][2] > arcs[i + 1][2]:
-                arcs[i], arcs[i + 1] = arcs[i + 1], arcs[i]
+                arcs.switch(i, i + 1)
 
 
-def kruskal(arcs: list):
+def kruskal(arcs: Vector):
+    arcs.shrink()
     sort_g(arcs)
     long = 0
     text = ''
