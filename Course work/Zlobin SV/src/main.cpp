@@ -20,21 +20,23 @@ public:
     MyVectorVec<int> ways;
     int size = 0;
     Node* data;
-    MyGraph(MyVector<string>& names, MyVectorVec<int>& graph) {
-        data = new Node[graph.size];
-        size = graph.size;
-        for (int i = 0; i < graph.size; i++) {
+    MyGraph(MyVector<string>& names, MyVectorVec<int>& graph1) {
+        data = new Node[graph1.size];
+        size = graph1.size;
+        for (int i = 0; i < graph1.size; i++) {
             data[i].name = names[i];
-            for (int k = 0; k < graph[i].size; k++) {
-                data[i].way.push_back(graph[i][k]);
+            graph.push_back();
+            for (int k = 0; k < graph1[i].size; k++) {
+                data[i].way.push_back(graph1[i][k]);
                 data[i].num = i;
-
-                if (graph[i][k] != 0 && i < k) {
+                
+                if (graph1[i][k] != 0 && i < k) {
                     ways.push_back();
                     ways[ways.size - 1].push_back(i);
                     ways[ways.size - 1].push_back(k);
-                    ways[ways.size - 1].push_back(graph[i][k]);
+                    ways[ways.size - 1].push_back(graph1[i][k]);
                 }
+                graph[i].push_back(to_string(graph1[i][k]));
             }
             cout << "\n";
         }
