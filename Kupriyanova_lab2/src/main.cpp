@@ -114,7 +114,7 @@ public:
     }
 };
 
-int GetMinrun(int n)
+int GetMinrun(int n) //поиск минимального размера подмассива
 	{
 	    int r = 0;           
 	    while (n >= 64) 
@@ -125,7 +125,7 @@ int GetMinrun(int n)
 	    return n + r;
 	}
 
-void Showstack(stack<pair<int, int> > s)
+void Showstack(stack<pair<int, int> > s) //вывод пар
 {
     while (!s.empty()) 
     {
@@ -138,7 +138,7 @@ void Showstack(stack<pair<int, int> > s)
     cout << '\n';
 }
 
-Arr& merge(Arr& startArray, int start, int mid, int last)
+Arr& merge(Arr& startArray, int start, int mid, int last) //слияние подмассивов с режимом галопа
 {
         int* left = new int[mid-start];
         int* right = new int[last-mid];
@@ -186,47 +186,55 @@ Arr& merge(Arr& startArray, int start, int mid, int last)
                     if(gallopL==7){
                         gallopL = 0;
                         int gallopCount = i;
-                        while(gallopContinue==true )
-                        {
-                            if(gallopCount>mid-start)
-                            {
+                        int gallopCountPrev = i;
+                        while(gallopContinue==true ){
+                            if(gallopCount>mid-start ){
                                 gallopCount = mid-start;
+                                if(left[gallopCount] > right[j]){
+                                    gallopCount = gallopCountPrev;
+                                }
                                 gallopContinue = false;
                             }
-                            if(left[gallopCount] <= right[j])
-                            {
-                                gallopI++;
+                            else if(left[gallopCount] <= right[j]){
+                                gallopCountPrev = gallopCount;
                                 gallopCount+=2*pow(gallopI,2);
+                                gallopI++;
+                                //gallopCountPrev = gallopCount-2*pow(gallopI,2);
                             }
-                            else
+                            else{
+                                gallopCount = gallopCountPrev;
                                 gallopContinue = false;
+                            }
                         }
-                        cout<<"GC "<<gallopCount<<endl;
+                        //cout<<"GC 1 "<<i<<" "<<gallopCount<<" "<<startArray.arr[k]<<endl;
                         copy(left + i, left + gallopCount, startArray.arr + k);
                         k+=gallopCount-i;
                         i=gallopCount;
                     }
-                    if(gallopR==7)
-                    {
+                    else if(gallopR==7){
                         gallopR = 0;
                         int gallopCount = j;
-                        while(gallopContinue==true )
-                        {
-                            if(gallopCount>last-mid)
-                            {
+                        int gallopCountPrev = j;
+                        while(gallopContinue==true ){
+                            if(gallopCount>last-mid){
                                 gallopCount = last-mid;
+                                if(right[gallopCount] > left[i]){
+                                    gallopCount = gallopCountPrev;
+                                }
                                 gallopContinue = false;
-
                             }
-                            if(right[gallopCount] <= left[i])
-                            {
-                                gallopI++;
+                            else if(right[gallopCount] <= left[i]){
+                                gallopCountPrev = gallopCount;
                                 gallopCount+=2*pow(gallopI,2);
+                                gallopI++;
+                                //gallopCountPrev = gallopCount-2*pow(gallopI,2);
                             }
-                            else
+                            else{
+                                gallopCount = gallopCountPrev;
                                 gallopContinue = false;
+                            }
                         }
-                        cout<<"GC "<<gallopCount<<endl;
+                        //cout<<"GC "<<j<<" "<<gallopCount<<" "<<startArray.arr[k]<<endl;
                         copy(right + j, right + gallopCount, startArray.arr + k);
                         k+=gallopCount-j;
                         j=gallopCount;
@@ -252,7 +260,7 @@ Arr& merge(Arr& startArray, int start, int mid, int last)
         return startArray;
 }
 
-void mergeArr(stack<pair<int, int>> s, Arr startArray)
+void mergeArr(stack<pair<int, int>> s, Arr startArray) 
 {
     while(s.size()>=2)
     {
@@ -295,7 +303,7 @@ void mergeArr(stack<pair<int, int>> s, Arr startArray)
 }
 
 
-void findRun(Arr startArray)
+void findRun(Arr startArray) //поиск подпоследоательностей
 {
     int pointer = 0;
     int runSize = 0;
@@ -353,7 +361,7 @@ void findRun(Arr startArray)
     {
         pair<int, int> p(pointer, numberOfRun.at(i));
         s.push(p);
-        for(int k=pointer+1;k<numberOfRun.at(i)+pointer;k++)
+        for(int k=pointer+1;k<numberOfRun.at(i)+pointer;k++) //сортировка вставками
         {
             for(int l=k;l>pointer && startArray.arr[l-1]>startArray.arr[l];l--)
                 swap(startArray.arr[l-1],startArray.arr[l]);
@@ -395,7 +403,7 @@ void findRun(Arr startArray)
 
 }
 
-void algorythm(Arr startArray)
+void algorythm (Arr startArray)
 {
     startArray.printArray();
     startArray.minrun = GetMinrun(startArray.capacity);
