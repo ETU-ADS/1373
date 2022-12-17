@@ -55,7 +55,7 @@ int main() {
 		std::cout << "________________________________________________________________________________________________________________" << std::endl;
 		std::cout << std::endl;
 
-		std::cout << "Removing(16-17)" << std::endl;
+		std::cout << "Removing(2, 3. 15, 16, 17, 20, 21)" << std::endl;
 		userRB.del(16);
 		userRB.del(17);
 		userRB.del(2);
