@@ -45,32 +45,27 @@ void reverse(int* arr, int size)
 
 void merge(int* arr, int left, int mid, int right)
 {
-	//создание 1 массива
 	int leftLen = mid - left + 1;
 	int* leftArr = new int[leftLen];
 
 	for (int i = 0; i < leftLen; i++)
 		leftArr[i] = arr[left + i];
 
-	//создание 2 массива
 	int rightLen = right - mid;
 	int* rightArr = new int[rightLen];
 
 	for (int i = 0; i < rightLen; i++)
 		rightArr[i] = arr[mid + 1 + i];
 
-	//счетчики
 	int i = 0;
 	int j = 0;
 	int k = left;
 
-	//счетчики для галлопа
 	int leftGallopCounter = 0;
 	int rightGallopCounter = 0;
 
 	int step = 1;
 
-	//сортировка
 	while (i < leftLen && j < rightLen)
 	{
 		if (leftArr[i] <= rightArr[j])
@@ -91,10 +86,9 @@ void merge(int* arr, int left, int mid, int right)
 		}
 		k++;
 
-		//галлоп
 		if (leftGallopCounter == 7)
 		{
-			while (leftArr[i + step] <= rightArr[j])
+			while (leftArr[i + step] <= rightArr[j] && i + step < leftLen && j < rightLen)
 			{
 				if (i + step >= leftLen)
 				{
@@ -118,7 +112,7 @@ void merge(int* arr, int left, int mid, int right)
 		}
 		if (rightGallopCounter == 7)
 		{
-			while (rightArr[j + step] <= leftArr[i])
+			while (rightArr[j + step] <= leftArr[i] && j + step < rightLen && i < leftLen)
 			{
 				if (j + step >= rightLen)
 				{
@@ -141,8 +135,7 @@ void merge(int* arr, int left, int mid, int right)
 			rightGallopCounter = 0;
 		}
 	}
-
-	//если в каком-то из массивов остались элементы, копируем в изначальный массив
+	
 	while (i < leftLen)
 	{
 		arr[k] = leftArr[i];
@@ -189,7 +182,6 @@ void timsort(int* arr, int size)
 		run.start = 0;
 		run.size = 1;
 
-		//формируем раны
 		for (int i = 1; i < size;)
 		{
 			if (arr[i] >= arr[i - 1])
