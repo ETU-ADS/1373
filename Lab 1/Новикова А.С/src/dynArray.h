@@ -5,19 +5,22 @@
 class DynArray
 {
 private:
+	int capacity;
 	int size;
 	std::string* data;
+
+	void expand();
 
 public:
 	DynArray();
 	DynArray(int elemAmount);
 	~DynArray();
 
-	int find(std::string value); //найти индекс по значению
+	int find(std::string value); //РЅР°Р№С‚Рё РёРЅРґРµРєСЃ РїРѕ Р·РЅР°С‡РµРЅРёСЋ
 
-	void add(int index, std::string value); //добавить элемент
+	void add(int index, std::string value); //РґРѕР±Р°РІРёС‚СЊ СЌР»РµРјРµРЅС‚
 
-	void remove(int index); // удалить элемент из списка по индексу
+	void remove(int index); // СѓРґР°Р»РёС‚СЊ СЌР»РµРјРµРЅС‚ РёР· СЃРїРёСЃРєР° РїРѕ РёРЅРґРµРєСЃСѓ
 
 	int getSize();
 
