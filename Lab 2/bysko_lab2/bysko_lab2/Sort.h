@@ -33,6 +33,8 @@ void Merge(Array<int>& arr, int start_1, int len_1, int len_2) {
 
 	int count_1 = 0, count_2 = 0, max = 7,	//for gallop mode
 		plusIndex_1 = 1, plusIndex_2 = 1;
+	bool isLast_1 = false;
+	bool isLast_2 = false;
 
 	while (x + y < len_1 + len_2) {
 		if (arr_1[x] <= arr_2[y] && (x < len_1)) {
@@ -53,14 +55,14 @@ void Merge(Array<int>& arr, int start_1, int len_1, int len_2) {
 					x += plusIndex_1;
 					plusIndex_1 += 1;
 
-					//
-					if (x + plusIndex_1 > len_1) {
+					if (x + plusIndex_1 > len_1 && isLast_1 == false) {
 						plusIndex_1 = len_1 - x;
+						isLast_1 = true;
 					}
-					//
 				}
 				count_1 = 0;
 				plusIndex_1 = 1;
+				isLast_1 = false;
 			}
 		}
 		else if (y < len_2)
@@ -82,15 +84,15 @@ void Merge(Array<int>& arr, int start_1, int len_1, int len_2) {
 					}
 					y += plusIndex_2;
 					plusIndex_2 += 1;
+
+					if (y + plusIndex_2 > len_2 && isLast_2 == false) {
+						plusIndex_2 = len_2 - y;
+						isLast_2 = true;
+					}
 				}
 				count_2 = 0;
 				plusIndex_2 = 1;
-
-				//
-				if (y + plusIndex_2 > len_2) {
-					plusIndex_2 = len_2 - y;
-				}
-				//
+				isLast_2 = false;
 			}
 		}
 		if (x >= len_1) {
