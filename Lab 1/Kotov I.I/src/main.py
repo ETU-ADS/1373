@@ -1,4 +1,4 @@
-from src.classes import Stack
+from classes import Stack
 
 def sortStation(inputLine):
     availableInput = ['*', '/', '+', '-', '^', 'sin', 'cos', '(', ')']
@@ -44,5 +44,5 @@ def sortStation(inputLine):
 
 
 if __name__ == "__main__":
-    inputLine = '3 * ( sin ( 4 ) - 1 ) + 4 *  cos ( 2 )  * 7 )'
+    inputLine = '3 * ( sin ( 4 ) - 1 ) + 4 *  cos ( 2 )  * 7'
     print(sortStation(inputLine))
